@@ -1,0 +1,24 @@
+--- main.php	2015-05-26 20:24:18.000000000 +0400
++++ mic/main.php	2015-05-26 11:26:34.000000000 +0400
+@@ -39,7 +39,7 @@
+ 		$loModelReferences = new References();
+ 		$loSubMenuReferences = $loModelReferences->ReferencesMenu();
+ 
+-        
++        $name = Yii::app()->user->isGuest?'':Yii::app()->user->title;
+         $this->widget('zii.widgets.CMenu',array(
+              'id'=>'main_ul',
+              'items'=> array(
+@@ -53,10 +53,9 @@
+ 					, 'items' => $loSubMenuReferences, 'visible'=>!Yii::app()->user->isGuest
+ 				),
+ 				array('label'=>'Параметры', 'url'=>array('/calcParams/'), 'visible'=>!Yii::app()->user->isGuest),
+-				array('label'=>'Перерасчет', 'url'=>array('/Pereschet/'), 'visible'=>!Yii::app()->user->isGuest),
+-				array('label'=>'Настройки', 'url'=>array('/Config/'), 'visible'=>!Yii::app()->user->isGuest),
+ 				array('label'=>'Вход', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+-				array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
++				array('label'=>'Выход ('.$name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
++				array('label'=>'Администрация', 'url'=>array('/userAdmin'), 'visible'=>(Yii::app()->user->checkAccess('userAdmin'))),
+ 				
+             ),
+         )); ?>

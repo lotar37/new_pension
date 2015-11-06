@@ -1,0 +1,113 @@
+td{
+	vertical-align:top;
+}
+th{
+	background:#77bbea;
+	text-align:center;
+}
+h6{
+	color:#555;
+}
+table.search_result td{
+	font-size:14px;
+}
+tr.act td{
+	background:#00f;
+}
+table.search_form tr.actform td{
+	background:#eea;
+}
+table.search_form td{
+	font-size:18px;
+	background:#e0e0e0;
+	border:1px solid #d0d0d0;
+	cursor:pointer;
+}
+input{
+	font-size:18px;
+}
+select{
+	border-radius: 8px;
+	margin-left:0em;
+}
+#shift{
+	background:#5ac;
+}
+td.filter{
+	xborder:1px solid white;
+}
+
+.filter input[type="checkbox"] {
+	height:0px;
+	width:0px;
+	overflow:hidden;
+    padding:0px;
+}
+.filter td{	
+ 	background:#eee;
+	xfont-size:10px;
+	cursor:pointer;
+    padding:0px;
+}
+#filter,#filter table, #filter table td{	
+    padding:0px;
+}
+div,span,.filter{	
+    padding:0px;
+}
+.filter span,.filter label, #client_filter_div{	
+    padding:0px;
+	margin:0em;
+}
+#format,  #gender, #warchaes, #paystop_div, #showall_div{ 
+    margin-top: 1em; 
+	padding:0px;
+} 
+.filter td.filterform{	
+    padding:0px;
+}
+.eighty{
+    border-spacing:5px;
+}
+.eighty td{
+	text-align:center;
+}
+table.filter_body{
+    padding:0px;	
+}
+table.filter_body td{
+    padding:0px;	
+}
+table.search_form td.in{background:#00f;}
+table.search_form td.pk{background:#ff0;}
+table.search_form td.vl{background:#800;}
+table.search_form td.vv{background:#f50;}
+table.search_form td.sp{background:#fff;}
+table.search_form td.vz{background:#8ff;}
+
+table.search_form tr.actform td.in{background:#00f;}
+table.search_form tr.actform td.pk{background:#ff0;}
+table.search_form tr.actform td.vl{background:#800;}
+table.search_form tr.actform td.vv{background:#f50;}
+table.search_form tr.actform td.sp{background:#fff;}
+table.search_form tr.actform td.vz{background:#8ff;}
+option{
+font-size:18px;
+}
+.paging{
+	border-spacing: 7px;
+	width:200px;
+}
+.paging td{
+	padding:5px;
+	margin:5px;
+	!background:#ddd;
+	cursor:pointer;
+	vertical-align:center;
+}
+.paging td.active{
+	padding:5px;
+	margin:5px;
+	cursor:pointer;
+	font-size: 24px;
+}

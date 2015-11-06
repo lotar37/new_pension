@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+body {
+	font-family: "Courier";
+	font-size: 12px;
+}
+.raschet, .isch {
+    max-width: 190mm;
+    margin: 10mm;
+    border: solid 1px black;
+}
+.raschet table, .isch table {
+	width: 100%;
+	margin: 0;
+}
+.raschet table td, .isch table td {
+	vertical-align: top;
+	xborder: solid 1px black;
+	padding: 2px;
+	line-height: 14px;
+}
+.raschet table td.label, .isch table td.label {
+	text-align: right;
+    white-space: nowrap;
+}
+.raschet table td.label.money, .isch table td.label.money {
+	text-align: left;
+    white-space: nowrap;
+}
+.raschet table > tbody > tr > td.label.sub {
+	
+}
+.raschet table.dispatch th {
+	border-bottom: solid 1px black;
+	border-right: solid 1px black;
+	font-weight: normal;
+}
+.raschet table.dispatch {
+	border-top: solid 1px black;
+	border-left: solid 1px black;
+}
