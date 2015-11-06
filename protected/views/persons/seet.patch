@@ -1,0 +1,90 @@
+--- _form.php	2015-04-29 11:30:46.000000000 +0400
++++ _form.rog.php	2015-04-22 13:01:35.000000000 +0400
+@@ -68,8 +68,6 @@
+ 
+ <div class='dismiss row type1'></div>
+ 
+-<div class='dependants row'  style="border:3px double white;padding:10px;display:none;position:absolute;background:#bbb;top:450px;left:550px;"></div>
+-
+ <div class='pererast row type2'>
+ <table><tr><td colspan='5' style='padding-top:3px'><font id='pererast_save' class='button'>Сохранить</font>&nbsp;<font id='pererast_close' class='button'>Отмена</font>
+ <td><font color='white'>Перерасчет</font></td>
+@@ -267,7 +265,6 @@
+ <?php
+ 	$loPersonReferences = new PersonReferences( $model->id );
+ 	print $loPersonReferences->printPersonReferencesTable();
+-	
+ 	$loPersonPayments = new PersonPayments( $model->id );
+ 	print $loPersonPayments->printPersonPaymentsTable();
+ ?>
+@@ -281,7 +278,7 @@
+  ?>
+ <script>
+ function closeAllWindow(exeption){
+-    arr = new Array("adress","war","post","sber","snils","doc","chaes","resolution","seniorities","pererast","dismiss","dependants");
++    arr = new Array("adress","war","post","sber","snils","doc","chaes","resolution","seniorities","pererast","dismiss");
+ 	ext = 0;
+     for(var i=0;i<arr.length;i++){
+ 	    if($("div."+arr[i]).is(':visible'))ext  = 1;
+@@ -349,13 +346,8 @@
+ $(".chaes").load("<?php echo $_adddir;?>../chaes");
+ $(".seniorities").load("<?php echo $_adddir;?>../seniorities/<?php echo $model->id;?>");
+ $(".dismiss").load("<?php echo $_adddir;?>../dismiss");
+-$(".dependants").load("<?php echo $_adddir;?>../dependants/<?php echo $model->id;?>");
+ $("#pereraschet_div").load("<?php echo $_adddir;?>../pereraschet/<?php echo $model->id;?>");
+ 
+-$( "#fdependants" ).click(function() {
+-  closeAllWindow("dependants");  
+-  $( "div.dependants" ).toggle( "fast" );
+-});
+ $( "#pereraschet" ).click(function(event) {
+ 	event.stopPropagation("pererast");
+ 	$( "div.pererast" ).toggle( "fast" );
+@@ -467,9 +459,6 @@
+ 	event.stopPropagation();
+   $( "div.adress" ).hide( );
+ });
+-$("#post_full_name").blur(function(event){
+-	$(this).val($(this).val().toUpperCase());
+-});
+ $("#pdelo").blur(function(event){
+     $.ajax({
+ 		url : '../casesNumberCheck',
+@@ -548,8 +537,8 @@
+ /*	var type = $("#type").attr("val");
+ 	if(type != "ПК")$("#death").css("display","none");
+ 	if(type == "ПК")$("#dismiss").css("display","none");*/
+-$( "#adress" ).val(collectAddrInfo());
+-$(".input_disable input").attr("disabled","disabled");
++    $( "#adress" ).val(collectAddrInfo());
++	$(".input_disable input").attr("disabled","disabled");
+ 	//closeAllWindow();
+ });
+ </script>
+@@ -609,7 +598,7 @@
+ 	<table><tr><td сlass='black'><nobr><font style='color:black'>	
+ 		<?php echo $form->labelEx($model,'post_full_name'); ?></font></nobr>
+ 	</td><td>	
+-		<?php echo $form->textField($model,'post_full_name',array('size'=>120,'class'=>'text',"id"=>"post_full_name")); ?>
++		<?php echo $form->textField($model,'post_full_name',array('size'=>120,'class'=>'text')); ?>
+ 		<?php echo $form->error($model,'post_full_name'); ?>
+ 	</td></tr></table>
+ 	
+@@ -824,7 +813,7 @@
+ 			<font style='color:#ffff00'>А</font><font style='color:#000080'>дрес&nbsp;</font><input id='adress' class='text' type='text' size='50'>
+ 	</td></tr>
+ 	<tr><td>
+-		<table><tr><td width='80%' id='fdependants'><font style='color:#ffff00'>И</font><font style='color:#000080'>ждевенцы &nbsp;</font>
++		<table><tr><td width='80%'><font style='color:#ffff00'>И</font><font style='color:#000080'>ждевенцы &nbsp;</font>
+ 		</td><td><font style='color:#ffff00'>Р</font><font style='color:#000080'>аботает</font>
+ 		</td><td>
+ 		<?php echo $form->checkBox($model,'is_working',array('style'=>"")); ?>
+@@ -923,7 +912,7 @@
+ 	  <tr>
+ 		<td class='but'>Поступило</td>
+ 		<td>&nbsp;</td>
+-		<td class='but'>Выплаты</td>
++		<td class='but' id='ButtonPersonPayments'>Выплаты</td>
+ 		<td>&nbsp;</td>
+ 		<td class='but'>Распоряжение</td>
+ 		<td>&nbsp;</td>
