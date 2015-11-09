@@ -13,7 +13,8 @@ class Constants{
                 array('label'=>'Рубрикаторы', 'url'=>array(''), 'items'=>array(
 				    array('label'=>'В/звания', 'url'=>array('/ranks/admin'),'itemOptions'=>array('id'=>'loss'), 'linkOptions'=>array('id'=>'a_loss'), 'visible'=>!Yii::app()->user->isGuest),
 				    array('label'=>'Военные действия','url'=>array('/warActions/admin'),'itemOptions'=>array('id'=>'loss'), 'linkOptions'=>array('id'=>'a_loss'), 'visible'=>!Yii::app()->user->isGuest),
-				    array('label'=>'Причины увольнения','url'=>array('/dismisses/admin'),'itemOptions'=>array('id'=>'loss'), 'linkOptions'=>array('id'=>'a_loss'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Причины увольнения','url'=>array('/dismisses/admin'),'itemOptions'=>array('id'=>'loss'), 'linkOptions'=>array('id'=>'a_loss'), 'visible'=>!Yii::app()->user->isGuest),
+					array('label'=>'Построитель запросов','url'=>array('/search'),'itemOptions'=>array('id'=>'loss'), 'linkOptions'=>array('id'=>'a_loss'), 'visible'=>!Yii::app()->user->isGuest),
                 ), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Печать', 'url'=>array('#'), 'itemOptions'=>array('id'=>'references')
 					, 'items' => $loSubMenuReferences, 'visible'=>!Yii::app()->user->isGuest
