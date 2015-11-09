@@ -31,7 +31,7 @@ class SearchController extends Controller
     {
 
         $this->render('index',array(
-            'dataProvider'=>$dataProvider,
+            'dataProvider'=>$_GET,
         ));
     }
 
