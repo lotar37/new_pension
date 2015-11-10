@@ -13,7 +13,7 @@
 	  var filter_empty = "";
 	  var i = 0; 
       $("#format input:checkbox:checked").each(function(index, elem){
-		s_types +=  (s_types ? "_" : "") + $(elem).prop("id");  
+		s_types +=  (s_types ? "_" : "") + $(elem).prop("id");
 		i++;
       }); 
 	  //if everyone or no one is selected
