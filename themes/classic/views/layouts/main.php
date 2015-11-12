@@ -19,11 +19,13 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 	<?php
-         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/datepicker-ru.js',CClientScript::POS_END);
-         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/search.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/datepicker-ru.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/search.js',CClientScript::POS_END);
     	Yii::app()->getClientScript()->registerCoreScript( 'jquery' );
 		Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' );
 		Yii::app()->clientScript->registerCssFile( Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css' );
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/underscore.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/backbone.js',CClientScript::POS_END);
 	?>
 	</head>
 

@@ -8,12 +8,3 @@
 $per = new Persons();
 $arr = $per->attributeLabels();
 echo json_encode($arr);
-/*
-echo "{";
-
- foreach($arr as $k=>$v){
-    echo $k.":'".$v."',";
-    //echo "{tableField:'".$k."', label:'".$v."'},";
-}
-echo "}";
-*/
