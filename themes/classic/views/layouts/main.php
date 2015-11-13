@@ -27,6 +27,11 @@
 		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/underscore.js',CClientScript::POS_END);
 		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/backbone.js',CClientScript::POS_END);
 		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/searcher/TableModel.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/inputmask/jquery.inputmask.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/inputmask/jquery.inputmask.numeric.extensions.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/inputmask/jquery.inputmask.extensions.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/inputmask/jquery.inputmask.custom.extensions.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/inputmask/jquery.inputmask.date.extensions.js',CClientScript::POS_END);
 	?>
 	</head>
 

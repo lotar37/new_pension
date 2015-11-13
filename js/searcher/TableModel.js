@@ -1,5 +1,5 @@
 /**
- * Created by Андрей on 10.11.2015.
+ * Created by РђРЅРґСЂРµР№ on 10.11.2015.
  */
 window.App = {
     Models : {},
@@ -28,21 +28,22 @@ window.App.Views.Table = Backbone.View.extend({
 });
 window.App.Routers.Controller = Backbone.Router.extend({
     routes: {
-        "": "select", // Пустой hash-тэг
-        "!/": "select", // Пустой hash-тэг
-        "!/select": "select", // Выбор полей поиска
-        "!/findForm": "findForm", // Поисковая форма
+        "": "select", // РџСѓСЃС‚РѕР№ hash-С‚СЌРі
+        "!/": "select", // РџСѓСЃС‚РѕР№ hash-С‚СЌРі
+        "!/select": "select", // Р’С‹Р±РѕСЂ РїРѕР»РµР№ РїРѕРёСЃРєР°
+        "!/findForm": "findForm", // РџРѕРёСЃРєРѕРІР°СЏ С„РѕСЂРјР°
     },
 
     select: function () {
-        $(".block").hide(); // Прячем все блоки
-        $("#select").show(); // Показываем нужный
+        $(".block").hide(); // РџСЂСЏС‡РµРј РІСЃРµ Р±Р»РѕРєРё
+        $("#select").show(); // РџРѕРєР°Р·С‹РІР°РµРј РЅСѓР¶РЅС‹Р№
     },
 
     findForm: function () {
         $(".block").hide();
         var templateB = _.template($(".addedBooleanField").html());
-        var templateIS = _.template($(".addedIntegerField").html());
+        var templateI = _.template($(".addedIntegerField").html());
+        var templateS = _.template($(".addedStringField").html());
         var templateD = _.template($(".addedDateField").html());
         $(".addedFields").empty();
         var d = {};
@@ -64,11 +65,13 @@ window.App.Routers.Controller = Backbone.Router.extend({
                     return
                 }
             });
-            console.log(s);
             if(s == "boolean")$(".addedFields").append(templateB({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-            if(s == "string" || s == "integer")$(".addedFields").append(templateIS({title:$(obj).attr("title"),field:$(obj).attr("field")}));
+            if(s == "string")$(".addedFields").append(templateS({title:$(obj).attr("title"),field:$(obj).attr("field")}));
+            if( s == "integer")$(".addedFields").append(templateI({title:$(obj).attr("title"),field:$(obj).attr("field")}));
             if(s == "date")$(".addedFields").append(templateD({title:$(obj).attr("title"),field:$(obj).attr("field")}));
         });
+        $(".inputdate").inputmask("d.m.y");
+        $(".inputinteger").inputmask("integer");
         $("#findForm").show();
     },
 

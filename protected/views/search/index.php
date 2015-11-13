@@ -43,13 +43,16 @@ $(function() {
         <li class="ui-widget-content" field="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b>(<%= table %>)</li>
     </script>
     <script  type="text/template" class="addedIntegerField">
-        <li class="" field="<%= field %>"><%= title %>:<input type="text" /> </li>
+        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
+    </script>
+    <script  type="text/template" class="addedStringField">
+        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="text" /> </td></tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
-        <li class="" field="<%= field %>"><%= title %>:<input type="checkbox" /> </li>
+        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="checkbox" /> </td></tr>
     </script>
     <script  type="text/template" class="addedDateField">
-        <li class="" field="<%= field %>"><%= title %> от:<input type="text" /> до:<input type="text" /> </li>
+        <tr>  <td class="" field="<%= field %>"><%= title %></td><td> от:<input type="text" class="inputdate"/> до:<input type="text"  class="inputdate"/> </td></tr>
     </script>
 
 
@@ -78,7 +81,7 @@ $(function() {
 </div>
 <div id="findForm" class="block">
     <h3> Выбраны поля</h3>
-    <ol class="addedFields"></ol>
+    <table class="addedFields"></table>
     <a href="#!/">Назад</a>
 
 </div>
