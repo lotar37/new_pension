@@ -5,34 +5,72 @@ window.App = {
     Models : {},
     Views : {},
     Collections : {},
+    Routers : {},
     temp : {}
 };
 window.App.Models.Table  = Backbone.Model.extend({
     defaults: {
-        name: 'name',
-        description: 'desc',
-        size: 100
     },
     initialize:function(){
-        //$.ajax({
-        //    url: './search/getModelAttributes',
-        //    async: true,
-        //    type: 'GET',
-        //    contentType: 'application/x-www-form-urlencoded',
-        //    dataType: 'json',
-        //    success: function (data) {
-        //        console.log(this);
-        //        window.App.temp = {df:12};
-        //    }
-        //});
-        console.log(window.App.temp);
-        _.each(window.App.temp, function(num, key){
-            this.set(key,num);
-            //console.log(this);
-
-        },this);
     }
 });
 window.App.Views.Table = Backbone.View.extend({
-    tagName: 'ol',
+    el:$("#selectable"),
+    template: _.template($(".li").html()),
+    initialize:function(){
+         this.render();
+    },
+    render:function(){
+        _.each(this.model.attributes, function(num, key){
+            this.$el.append(this.template({tableAttr:num, table:key}));
+        },this);
+    }
 });
+window.App.Routers.Controller = Backbone.Router.extend({
+    routes: {
+        "": "select", // Пустой hash-тэг
+        "!/": "select", // Пустой hash-тэг
+        "!/select": "select", // Выбор полей поиска
+        "!/findForm": "findForm", // Поисковая форма
+    },
+
+    select: function () {
+        $(".block").hide(); // Прячем все блоки
+        $("#select").show(); // Показываем нужный
+    },
+
+    findForm: function () {
+        $(".block").hide();
+        var templateB = _.template($(".addedBooleanField").html());
+        var templateIS = _.template($(".addedIntegerField").html());
+        var templateD = _.template($(".addedDateField").html());
+        $(".addedFields").empty();
+        var d = {};
+        $.ajax({
+            url: './search/getModelTypes',
+            async: false,
+            type: 'GET',
+            contentType: 'application/x-www-form-urlencoded',
+            dataType: 'json',
+            success: function (data) {
+                d = data;
+            }
+        });
+        $("#added li").each(function(index,obj){
+            var s = "";
+                $.each(d, function(i, object) {
+                if (i == $(obj).attr("field")) {
+                    s = object;
+                    return
+                }
+            });
+            console.log(s);
+            if(s == "boolean")$(".addedFields").append(templateB({title:$(obj).attr("title"),field:$(obj).attr("field")}));
+            if(s == "string" || s == "integer")$(".addedFields").append(templateIS({title:$(obj).attr("title"),field:$(obj).attr("field")}));
+            if(s == "date")$(".addedFields").append(templateD({title:$(obj).attr("title"),field:$(obj).attr("field")}));
+        });
+        $("#findForm").show();
+    },
+
+});
+

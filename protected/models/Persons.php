@@ -117,7 +117,32 @@ class Persons extends CActiveRecord
 
 			);
 	}
-
+	public function attributeTypes(){
+		return array(
+		'id' => 'integer',
+		'second_name' => 'string',
+		'first_name' => 'string',
+		'third_name' => 'string',
+		'birth_date' => 'date',
+		'birth_place' => 'string',
+		'pension_date' => 'date',
+		'death_date' => 'date',
+		'is_duty_death' => 'boolean',
+		'rank' => 'integer',
+		'post_full_name' => 'string',
+		'dismiss' => 'integer',
+		'dismiss_date' => 'date',
+		'phone' => 'string',
+		'is_working' => 'boolean',
+		'invalid_reason' => 'integer',
+		'invalid_group' => 'integer',
+		'invalid_date' => 'date',
+		'invalid_date2' => 'date',
+		'invalid_limit' => 'integer',
+		'is_other_pension' => 'boolean',
+		'snils' => 'string'
+		);
+	}
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

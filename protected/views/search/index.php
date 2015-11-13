@@ -1,63 +1,87 @@
-
+<head>
+    <style>
+    #feedback { font-size: 1.4em; }
+    #selectable .ui-selecting { background: #FECA40; }
+    #selectable .ui-selected { background: #F39814; color: white; }
+    #selectable { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:450px;height:300px;overflow-y: scroll;}
+    #selectable li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
+    #added .ui-selecting { background: #FECA40; }
+    #added .ui-selected { background: #F39814; color: white; }
+    #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:300px;overflow-y: scroll;}
+    #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
+</style>
 
 <script>
 $(function() {
     var tbl = new window.App.Models.Table();
     $.ajax({
         url: './search/getModelAttributes',
-        async: true,
+        async: false,
         type: 'GET',
         contentType: 'application/x-www-form-urlencoded',
         dataType: 'json',
         success: function (data) {
-            _.each(data, function(num, key){ k = key+"";tbl.set(key,num); });
+            _.each(data, function(num, key){tbl.set(key,num); });
         }
      });
-   // var tbl = Backbone.Model.extend();
-   // _.each(table, function(num, key){ tbl.set({key:num}); console.log(key + " - " + num);});
-    //console.log(tbl);
-    console.log(tbl);
 
+    var viewTbl = new window.App.Views.Table({model:tbl});
+
+    $("#selectable li").on("click",function (){
+        $("#added").append($(this));
+    });
+    $("#added").on("click","li", function (){
+        $("#selectable").append($(this));
+    });
+    var controller = new window.App.Routers.Controller(); // Создаём контроллер
+    Backbone.history.start();// Запускаем HTML5 History push
+    controller.navigate("select", true);
 
 });
 </script>
+    <script  type="text/template" class="li">
+        <li class="ui-widget-content" field="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b>(<%= table %>)</li>
+    </script>
+    <script  type="text/template" class="addedIntegerField">
+        <li class="" field="<%= field %>"><%= title %>:<input type="text" /> </li>
+    </script>
+    <script  type="text/template" class="addedBooleanField">
+        <li class="" field="<%= field %>"><%= title %>:<input type="checkbox" /> </li>
+    </script>
+    <script  type="text/template" class="addedDateField">
+        <li class="" field="<%= field %>"><%= title %> от:<input type="text" /> до:<input type="text" /> </li>
+    </script>
 
-<style>
-    #feedback { font-size: 1.4em; }
-    #selectable .ui-selecting { background: #FECA40; }
-    #selectable .ui-selected { background: #F39814; color: white; }
-    #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-</style>
-<script>
-    $(function() {
-        $( "#selectable" ).selectable({
-            stop: function() {
-                var result = $( "#select-result" ).empty();
-                $( ".ui-selected", this ).each(function() {
-                    var index = $( "#selectable li" ).index( this );
-                    result.append( " #" + ( index + 1 ) );
-                });
-            }
-        });
-    });
-</script>
+
+
 </head>
 <body>
+<h1>Построитель запросов</h1>
 
-<p id="feedback">
-    <span>Вы выбрали:</span> <span id="select-result">none</span>.
-</p>
+<div id="select" class="block">
 
-<ol id="selectable">
-    <li class="ui-widget-content">Item 1</li>
-    <li class="ui-widget-content">Item 2</li>
-    <li class="ui-widget-content">Item 3</li>
-    <li class="ui-widget-content">Item 4</li>
-    <li class="ui-widget-content">Item 5</li>
-    <li class="ui-widget-content">Item 6</li>
+<table>
+    <th>Таблица:Person</th>
+    <th>Выбранные поля</th>
+    <tr><td>
+<ol id="selectable" style="background:#bbbbbb">
+
 </ol>
+</td><td>
+<ol id="added"  style="background:#bbbbbb">
 
+</ol>
+</td>
+    </tr>
+</table>
+    <a href="#!/findForm">Далее</a>
+</div>
+<div id="findForm" class="block">
+    <h3> Выбраны поля</h3>
+    <ol class="addedFields"></ol>
+    <a href="#!/">Назад</a>
+
+</div>
 
 <?php
 

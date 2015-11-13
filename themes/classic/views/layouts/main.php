@@ -26,6 +26,7 @@
 		Yii::app()->clientScript->registerCssFile( Yii::app()->clientScript->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css' );
 		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/underscore.js',CClientScript::POS_END);
 		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/backbone.js',CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/searcher/TableModel.js',CClientScript::POS_END);
 	?>
 	</head>
 
