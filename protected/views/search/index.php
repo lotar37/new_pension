@@ -1,5 +1,6 @@
 <head>
     <style>
+    a{color:white}
     #feedback { font-size: 1.4em; }
     #selectable .ui-selecting { background: #FECA40; }
     #selectable .ui-selected { background: #F39814; color: white; }
@@ -20,6 +21,7 @@ $(function() {
 
     $("#selectable li").on("click",function (){
         $("#added").append($(this));
+        window.App.temp.newAdd = true;
     });
     $("#added").on("click","li", function (){
         $("#selectable").append($(this));
@@ -40,7 +42,7 @@ $(function() {
         <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="text" /> </td></tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
-        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="checkbox" /> </td></tr>
+        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="checkbox" checked/> </td></tr>
     </script>
     <script  type="text/template" class="addedDateField">
         <tr>  <td class="" field="<%= field %>"><%= title %></td><td> от:<input type="text" class="inputdate"/> до:<input type="text"  class="inputdate"/> </td></tr>
@@ -74,6 +76,12 @@ $(function() {
     <h3> Выбраны поля</h3>
     <table class="addedFields"></table>
     <a href="#!/">Назад</a>
+    <a href="#!/result">Искать!</a>
+
+</div>
+<div id="result" class="block">
+    <h3>Результат поиска</h3>
+    <a href="#!/findForm">Назад</a>
 
 </div>
 
