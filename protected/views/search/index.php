@@ -14,16 +14,7 @@
 <script>
 $(function() {
     var tbl = new window.App.Models.Table();
-    $.ajax({
-        url: './search/getModelAttributes',
-        async: false,
-        type: 'GET',
-        contentType: 'application/x-www-form-urlencoded',
-        dataType: 'json',
-        success: function (data) {
-            _.each(data, function(num, key){tbl.set(key,num); });
-        }
-     });
+    tbl.fetch({async: false});
 
     var viewTbl = new window.App.Views.Table({model:tbl});
 

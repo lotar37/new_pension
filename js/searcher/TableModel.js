@@ -8,7 +8,12 @@ window.App = {
     Routers : {},
     temp : {}
 };
+//Backbone.sync = function(method, model, options) {
+//    //options = "async:false";
+//};
 window.App.Models.Table  = Backbone.Model.extend({
+    url: './search/getModelAttributes',
+
     defaults: {
     },
     initialize:function(){
