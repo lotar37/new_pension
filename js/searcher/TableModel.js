@@ -27,7 +27,8 @@ window.App.Views.Table = Backbone.View.extend({
     },
     render:function(){
         _.each(this.model.attributes, function(num, key){
-            this.$el.append(this.template({tableAttr:num, table:key}));
+           // console.log(num.type);
+            this.$el.append(this.template({tableAttr:num.attr, table:key}));
         },this);
     }
 });

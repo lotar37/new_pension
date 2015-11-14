@@ -8,4 +8,10 @@
 $per = new Persons;
 //var_dump(Yii::app()->request->getDataForModel($per));die();
 $arr = $per->attributeLabels();
-echo json_encode($arr);
+$arr2 = $per->attributeTypes();
+$result = array();
+foreach($arr as $k=>$v){
+    $type = isset($arr2[$k])? $arr2[$k] : "string";
+    $result[$k] = array("attr"=>$v,"type"=>$type);
+}
+echo json_encode($result);
