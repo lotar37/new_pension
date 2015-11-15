@@ -6,7 +6,9 @@ window.App = {
     Views : {},
     Collections : {},
     Routers : {},
-    temp : {newAdd:false}
+    temp : {newAdd:false},
+    tbl : {},
+    findForm:false
 };
 //Backbone.sync = function(method, model, options) {
 //    //options = "async:false";
@@ -16,6 +18,10 @@ window.App.Models.Table  = Backbone.Model.extend({
 
     defaults: {
     },
+    initialize:function(){
+    }
+});
+window.App.Models.Result  = Backbone.Model.extend({
     initialize:function(){
     }
 });
@@ -42,27 +48,41 @@ window.App.Views.FindForm = Backbone.View.extend({
     },
     render:function(){
         var d = this.model.attributes;
-        console.log(d);
         $(".addedFields").empty();
-        //$("#added li").each(function(index,obj){
         for(var j=0;j<$("#added li").size();j++) {
             var obj = $("#added li")[j];
             var a = _.values(_.pick(d, $(obj).attr("field")));
-             b = a[0];
-            console.log(b.type);
-            // console.log(b);
-             if(b.type == "boolean")$(".addedFields").append(this.templateB({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-             if(b.type == "string")$(".addedFields").append(this.templateS({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-             if(b.type == "integer")$(".addedFields").append(this.templateI({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-             if(b.type == "date")$(".addedFields").append(this.templateD({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-            // },this);
+            b = a[0];
+            var dateJ = {title:$(obj).attr("title"),field:$(obj).attr("field"),type: b.type};
+            switch(b.type){
+                case "boolean":$(".addedFields").append(this.templateB(dateJ));
+                    break;
+                case "string" : $(".addedFields").append(this.templateS(dateJ));
+                    break;
+                case "integer": $(".addedFields").append(this.templateI(dateJ));
+                    break;
+                case "date" : $(".addedFields").append(this.templateD(dateJ));
+             }
         }
         $(".inputdate").inputmask("d.m.y");
         $(".inputinteger").inputmask("integer");
 
     }
+});
+window.App.Views.Result  = Backbone.View.extend({
+    el:$(".resultTable"),
+    template :   _.template($(".person").html()),
+    initialize:function(){
+        this.random();
+    },
+    random:function(){
+        this.$el.empty();
+        _.each(this.model.attributes, function(obj, key){
+             //console.log(obj);
+            this.$el.append(this.template(obj));
+        },this);
 
-
+    },
 });
 window.App.Routers.Controller = Backbone.Router.extend({
     routes: {
@@ -79,58 +99,45 @@ window.App.Routers.Controller = Backbone.Router.extend({
     },
     result: function () {
         $(".block").hide(); // Прячем все блоки
-        $("#result").show(); // Показываем нужный
+        var coll = $("#findForm td.data");
+        var mod = new Backbone.Model.extend();
+        var arr = [];
+        var i = 0;
+        for(var j=0;j<$("#findForm td.data").size();j++) {
+            var obj = $("#findForm td.data")[j];
+            var obj2 = $(obj).siblings()[0];
+            var obj3 = $(obj2).children("input");
+            if($(obj).attr("type")== "date") arr.push({type:$(obj).attr("type"), field:$(obj).attr("field"), begin:$(obj3[0]).val(),end:$(obj3[1]).val()});
+            else{
+                arr.push({type:$(obj).attr("type"), field:$(obj).attr("field"), val:$(obj3[0]).val()});
+            }
+            //console.log(arr + "===" + $(obj).attr("type") + " - " + $(obj3[0]).val());
+            i++;
+        }
         $.ajax({
             url: './search/request',
             async: false,
-            //type: 'GET',
-           // contentType: 'application/x-www-form-urlencoded',
             dataType: 'json',
-            data:{foo:{d:1,x:3}, arnor:{d:2,x:1}},
+            data:{d:arr},
             success: function (datas) {
-
+                //console.log(datas);
+                var tab = new window.App.Models.Result(datas);
+                var res = new window.App.Views.Result({model:tab});
             }
         });
+        $("#result").show(); // Показываем нужный
 
     },
-
     findForm: function () {
         $(".block").hide();
         if(!window.App.temp.newAdd){
             $("#findForm").show();
             return;
         }
-        var tbl2 = new window.App.Models.Table();
-        tbl2.fetch({async: false});
-        var va = new window.App.Views.FindForm({model:tbl2});
+        if(window.App.FindForm)window.App.FindForm.render();
+        else window.App.FindForm = new window.App.Views.FindForm({model:window.App.tbl});
 
-        //var templateB = _.template($(".addedBooleanField").html());
-        //var templateI = _.template($(".addedIntegerField").html());
-        //var templateS = _.template($(".addedStringField").html());
-        //var templateD = _.template($(".addedDateField").html());
-        //$(".addedFields").empty();
-        //var d = {};
-        //$.ajax({
-        //    url: './search/getModelTypes',
-        //    async: false,
-        //    type: 'GET',
-        //    contentType: 'application/x-www-form-urlencoded',
-        //    dataType: 'json',
-        //    success: function (data) {
-        //        d = data;
-        //    }
-        //});
-        //$("#added li").each(function(index,obj){
-        //    var a = _.values(_.pick(d,$(obj).attr("field")));
-        //    //console.log(a[0]);
-        //    if(a[0] == "boolean")$(".addedFields").append(templateB({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-        //    if(a[0] == "string")$(".addedFields").append(templateS({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-        //    if(a[0] == "integer")$(".addedFields").append(templateI({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-        //    if(a[0] == "date")$(".addedFields").append(templateD({title:$(obj).attr("title"),field:$(obj).attr("field")}));
-        //});
-        //$(".inputdate").inputmask("d.m.y");
-        //$(".inputinteger").inputmask("integer");
-        window.App.temp.newAdd = false;
+         window.App.temp.newAdd = false;
         $("#findForm").show();
     },
 

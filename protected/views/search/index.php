@@ -4,16 +4,18 @@
     #feedback { font-size: 1.4em; }
     #selectable .ui-selecting { background: #FECA40; }
     #selectable .ui-selected { background: #F39814; color: white; }
-    #selectable { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:450px;height:300px;overflow-y: scroll;}
+    #selectable { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:450px;height:200px;overflow-y: scroll;}
     #selectable li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
     #added .ui-selecting { background: #FECA40; }
     #added .ui-selected { background: #F39814; color: white; }
-    #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:300px;overflow-y: scroll;}
+    #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:200px;overflow-y: scroll;}
     #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
 </style>
 
 <script>
 $(function() {
+    window.App.tbl = new window.App.Models.Table();
+    window.App.tbl.fetch();
     var tbl = new window.App.Models.Table();
     tbl.fetch({async: false});
 
@@ -36,16 +38,22 @@ $(function() {
         <li class="ui-widget-content" field="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b>(<%= table %>)</li>
     </script>
     <script  type="text/template" class="addedIntegerField">
-        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
+        <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
     </script>
     <script  type="text/template" class="addedStringField">
-        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="text" /> </td></tr>
+        <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="text" /> </td></tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
-        <tr> <td class="" field="<%= field %>"><%= title %>:</td><td><input type="checkbox" checked/> </td></tr>
+        <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="checkbox" checked/> </td></tr>
     </script>
     <script  type="text/template" class="addedDateField">
-        <tr>  <td class="" field="<%= field %>"><%= title %></td><td> от:<input type="text" class="inputdate"/> до:<input type="text"  class="inputdate"/> </td></tr>
+        <tr>  <td class="data" field="<%= field %>" type="<%= type %>"><%= title %></td>
+            <td> от:<input type="text" class="inputdate begin"/> до:<input type="text"  class="inputdate end"/> </td>
+        </tr>
+    </script>
+    <script  type="text/template" class="person">
+        <tr person="<%= id %>">  <td class="" >ФИО:<%= second_name %> <%= first_name %> <%= third_name %> <%= birth_date %> </td>
+        </tr>
     </script>
 
 
@@ -82,6 +90,7 @@ $(function() {
 <div id="result" class="block">
     <h3>Результат поиска</h3>
     <a href="#!/findForm">Назад</a>
+    <table class="resultTable"></table>
 
 </div>
 
