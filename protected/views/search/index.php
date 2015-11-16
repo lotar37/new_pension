@@ -15,6 +15,7 @@
 <script>
 $(function() {
     window.App.tbl = new window.App.Models.Table();
+    window.App.tbl.url = window.App.tbl.url + "/tableName=" + window.App.tbl.tableName;
     window.App.tbl.fetch();
     var tbl = new window.App.Models.Table();
     tbl.fetch({async: false});
