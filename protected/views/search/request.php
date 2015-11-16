@@ -27,7 +27,7 @@ foreach($_GET["d"] as $k=>$one){
         case "integer" :
         case "boolean" : if($one["val"])$conditions .= ($conditions ? " AND ": "").$one["field"]." = '".trim($one["val"])."' ";
             break;
-        case "date": if($one["begin"] || !$one["end"])$conditions .= ($conditions ? " AND ": "").$one["field"]." > '".date('Y-M-d', CDateTimeParser::parse($one["begin"], "d.M.y"))."' ";
+        case "date": if($one["begin"] || $one["end"])$conditions .= ($conditions ? " AND ": "").$one["field"]." > '".date('Y-M-d', CDateTimeParser::parse($one["begin"], "d.M.y"))."' ";
 
     }
 

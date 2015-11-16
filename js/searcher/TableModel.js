@@ -14,7 +14,8 @@ window.App = {
 //    //options = "async:false";
 //};
 window.App.Models.Table  = Backbone.Model.extend({
-    url: './search/getModelAttributes',
+    tableName:"defaultTable",
+    url: './search/getModelAttributes/'+this.tableName,
 
     defaults: {
     },
@@ -32,8 +33,9 @@ window.App.Views.Table = Backbone.View.extend({
          this.render();
     },
     render:function(){
+        this.model.tableName = "eee";
+        //console.log(this.model.tableName);
         _.each(this.model.attributes, function(num, key){
-           // console.log(num.type);
             this.$el.append(this.template({tableAttr:num.attr, table:key}));
         },this);
     }
