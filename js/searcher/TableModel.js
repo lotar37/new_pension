@@ -15,11 +15,15 @@ window.App = {
 //};
 window.App.Models.Table  = Backbone.Model.extend({
     tableName:"defaultTable",
-    url: './search/getModelAttributes/'+this.tableName,
+    url: './search/getModelAttributes',
 
     defaults: {
     },
+    urlshift: function(tableName){
+        this.url = this.url + "?tableName=" + tableName;
+    },
     initialize:function(){
+
     }
 });
 window.App.Models.Result  = Backbone.Model.extend({
@@ -80,8 +84,20 @@ window.App.Views.Result  = Backbone.View.extend({
     random:function(){
         this.$el.empty();
         _.each(this.model.attributes, function(obj, key){
-             //console.log(obj);
-            this.$el.append(this.template(obj));
+            if(key>0)return 0;
+            console.log(key);
+            var keys = _.keys(obj);
+            var head = "";
+            console.log(keys);
+            for(var i=0;i<keys.length;i++){
+                var a_attr = _.values(_.pick(window.App.tbl.attributes,keys[i]));
+                if(a_attr[0]== undefined)continue;
+                if(a_attr[0].attr== undefined)continue;
+                head += "<th>" + a_attr[0].attr + "</th>";
+            }
+            this.$el.append(head);
+            return false;
+           // this.$el.append(this.template(obj));
         },this);
 
     },

@@ -5,10 +5,11 @@
  * Date: 09.11.2015
  * Time: 20:44
  */
-$per = new Persons;
-//var_dump(Yii::app()->request->getDataForModel($per));die();
-$arr = $per->attributeLabels();
-$arr2 = $per->attributeTypes();
+$tables = new $_GET["tableName"]();
+//echo $tables[$_GET["tableName"]];
+//var_dump($_GET);die();
+$arr  = $tables->attributeLabels();
+$arr2 = $tables->attributeTypes();
 $result = array();
 foreach($arr as $k=>$v){
     $type = isset($arr2[$k])? $arr2[$k] : "string";

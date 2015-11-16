@@ -2,9 +2,9 @@
     <style>
     a{color:white}
     #feedback { font-size: 1.4em; }
-    #selectable .ui-selecting { background: #FECA40; }
+    #selectable .ui-selecting { background: #FECA40;  }
     #selectable .ui-selected { background: #F39814; color: white; }
-    #selectable { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:450px;height:200px;overflow-y: scroll;}
+    #selectable { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:350px;height:200px;overflow-y: scroll;}
     #selectable li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
     #added .ui-selecting { background: #FECA40; }
     #added .ui-selected { background: #F39814; color: white; }
@@ -14,10 +14,13 @@
 
 <script>
 $(function() {
+    $("#selectable").draggable();
     window.App.tbl = new window.App.Models.Table();
-    window.App.tbl.url = window.App.tbl.url + "/tableName=" + window.App.tbl.tableName;
-    window.App.tbl.fetch();
+    //window.App.tbl.url = window.App.tbl.url + "/tableName=" + window.App.tbl.tableName;
+    window.App.tbl.urlshift("Persons");
+    window.App.tbl.fetch({async: false});
     var tbl = new window.App.Models.Table();
+    tbl.urlshift("Persons");
     tbl.fetch({async: false});
 
     var viewTbl = new window.App.Views.Table({model:tbl});
@@ -36,7 +39,7 @@ $(function() {
 });
 </script>
     <script  type="text/template" class="li">
-        <li class="ui-widget-content" field="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b>(<%= table %>)</li>
+        <li class="ui-widget-content" field="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
     </script>
     <script  type="text/template" class="addedIntegerField">
         <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
