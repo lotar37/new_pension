@@ -39,19 +39,19 @@ $(function() {
 });
 </script>
     <script  type="text/template" class="li">
-        <li class="ui-widget-content" field="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
+        <li class="ui-widget-content" field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
     </script>
     <script  type="text/template" class="addedIntegerField">
-        <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
     </script>
     <script  type="text/template" class="addedStringField">
-        <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="text" /> </td></tr>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" /> </td></tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
-        <tr> <td class="data" field="<%= field %>" type="<%= type %>"><%= title %>:</td><td><input type="checkbox" checked/> </td></tr>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="checkbox" checked/> </td></tr>
     </script>
     <script  type="text/template" class="addedDateField">
-        <tr>  <td class="data" field="<%= field %>" type="<%= type %>"><%= title %></td>
+        <tr>  <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %></td>
             <td> от:<input type="text" class="inputdate begin"/> до:<input type="text"  class="inputdate end"/> </td>
         </tr>
     </script>

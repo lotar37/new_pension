@@ -12,28 +12,30 @@ function dbRequest($sql){
     return $command->query();
 }
 $conditions = "";
-$from = "public.cases INNER JOIN public.persons ON cases.person = persons.id";
-$sql = "SELECT DISTINCT persons.id ,persons.second_name, persons.first_name, persons.third_name, persons.birth_date, cases.number,
-cases.type FROM $from WHERE ";
-//$sql2 = "SELECT DISTINCT COUNT(distinct persons.id) FROM  $from  WHERE persons.second_name ILIKE '".$a_string[0]."%' $s_namesearch ".$addSearchConditions["type"]." ".$addSearchConditions["age"]." ".$addSearchConditions["terminated"]." ".$addSearchConditions["gender"]." ;";
-//$aff = $_GET["d"];
+if(count($_GET["tables"])==1) $from = "public.".$_GET["tables"][0];
+else $from = "public.cases INNER JOIN public.Ðersons ON cases.person = persons.id";
 
+$fields = "";
+
+if(isset($_GET["d"]))
 foreach($_GET["d"] as $k=>$one){
- //   if(!$one["val"])continue;
-    //if($conditions)$conditions .= " AND ";
+    $fields .= ($fields ? ", " : "").$one["table"].".".$one["field"];
     switch($one["type"]){
         case "string" : if($one["val"])$conditions .= ($conditions ? " AND ": "").$one["field"]." ILIKE '%".trim($one["val"])."%' ";
         break;
-        case "integer" :
-        case "boolean" : if($one["val"])$conditions .= ($conditions ? " AND ": "").$one["field"]." = '".trim($one["val"])."' ";
+        case "integer" :if($one["val"])$conditions .= ($conditions ? " AND ": "").$one["field"]." = '".trim($one["val"])."' ";
+            break;
+        case "boolean" : if($one["val"]) $conditions .= ($conditions ? " AND " : "") . $one["field"] . " = '1' ";
             break;
         case "date": if($one["begin"] || $one["end"])$conditions .= ($conditions ? " AND ": "").$one["field"]." > '".date('Y-M-d', CDateTimeParser::parse($one["begin"], "d.M.y"))."' ";
 
     }
-
 }
+//$sql = "SELECT DISTINCT persons.id ,persons.second_name, persons.first_name, persons.third_name, persons.birth_date, cases.number,cases.type FROM $from WHERE ";
+$sql = "SELECT DISTINCT ".$fields." FROM $from WHERE ".$conditions." LIMIT 10 OFFSET 1";
+
 //echo $sql.$conditions;
-$Result = dbRequest($sql.$conditions." LIMIT 10 OFFSET 1");
+$Result = dbRequest($sql);
 //$Result2 = dbRequest($sql2);
 //var_dump($Result2->readAll());
 $data = $Result->readAll();

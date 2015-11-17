@@ -20,6 +20,7 @@ window.App.Models.Table  = Backbone.Model.extend({
     defaults: {
     },
     urlshift: function(tableName){
+        this.tableName = tableName;
         this.url = this.url + "?tableName=" + tableName;
     },
     initialize:function(){
@@ -37,10 +38,10 @@ window.App.Views.Table = Backbone.View.extend({
          this.render();
     },
     render:function(){
-        this.model.tableName = "eee";
+        //this.model.tableName = "eee";
         //console.log(this.model.tableName);
         _.each(this.model.attributes, function(num, key){
-            this.$el.append(this.template({tableAttr:num.attr, table:key}));
+            this.$el.append(this.template({tableAttr:num.attr, field:key, table:this.model.tableName}));
         },this);
     }
 });
@@ -59,7 +60,7 @@ window.App.Views.FindForm = Backbone.View.extend({
             var obj = $("#added li")[j];
             var a = _.values(_.pick(d, $(obj).attr("field")));
             b = a[0];
-            var dateJ = {title:$(obj).attr("title"),field:$(obj).attr("field"),type: b.type};
+            var dateJ = {title:$(obj).attr("title"),field:$(obj).attr("field"),type: b.type, table:$(obj).attr("table")};
             switch(b.type){
                 case "boolean":$(".addedFields").append(this.templateB(dateJ));
                     break;
@@ -85,10 +86,8 @@ window.App.Views.Result  = Backbone.View.extend({
         this.$el.empty();
         _.each(this.model.attributes, function(obj, key){
             if(key>0)return 0;
-            console.log(key);
             var keys = _.keys(obj);
             var head = "";
-            console.log(keys);
             for(var i=0;i<keys.length;i++){
                 var a_attr = _.values(_.pick(window.App.tbl.attributes,keys[i]));
                 if(a_attr[0]== undefined)continue;
@@ -96,8 +95,16 @@ window.App.Views.Result  = Backbone.View.extend({
                 head += "<th>" + a_attr[0].attr + "</th>";
             }
             this.$el.append(head);
-            return false;
-           // this.$el.append(this.template(obj));
+        },this);
+
+        _.each(this.model.attributes, function(obj, key){
+
+            var body = "<tr>";
+            var arr = _.values(obj);
+            for(var i=0;i<arr.length;i++){
+                body += "<td>" + arr[i] + "</td>";
+            }
+            this.$el.append(body+"</tr>");
         },this);
 
     },
@@ -118,31 +125,47 @@ window.App.Routers.Controller = Backbone.Router.extend({
     result: function () {
         $(".block").hide(); // Прячем все блоки
         var coll = $("#findForm td.data");
-        var mod = new Backbone.Model.extend();
+//        var mod = new Backbone.Model.extend();
         var arr = [];
+        var tables = [];
         var i = 0;
         for(var j=0;j<$("#findForm td.data").size();j++) {
             var obj = $("#findForm td.data")[j];
             var obj2 = $(obj).siblings()[0];
             var obj3 = $(obj2).children("input");
-            if($(obj).attr("type")== "date") arr.push({type:$(obj).attr("type"), field:$(obj).attr("field"), begin:$(obj3[0]).val(),end:$(obj3[1]).val()});
-            else{
-                arr.push({type:$(obj).attr("type"), field:$(obj).attr("field"), val:$(obj3[0]).val()});
+            tables.push($(obj).attr("table"));
+            if($(obj).attr("type")== "date") {
+                arr.push({
+                    type: $(obj).attr("type"),
+                    field: $(obj).attr("field"),
+                    table: $(obj).attr("table"),
+                    begin: $(obj3[0]).val(),
+                    end: $(obj3[1]).val()
+                });
+            }else{
+                arr.push({
+                    type:$(obj).attr("type"),
+                    field:$(obj).attr("field"),
+                    table: $(obj).attr("table"),
+                    val:$(obj3[0]).val()
+                });
             }
-            //console.log(arr + "===" + $(obj).attr("type") + " - " + $(obj3[0]).val());
             i++;
         }
+        var tableUnion = _.union(tables);
+        console.log(tableUnion);
         $.ajax({
             url: './search/request',
             async: false,
             dataType: 'json',
-            data:{d:arr},
+            data:{d:arr,tables:tableUnion},
             success: function (datas) {
                 //console.log(datas);
                 var tab = new window.App.Models.Result(datas);
                 var res = new window.App.Views.Result({model:tab});
             }
         });
+        $("#findForm").show(); // Показываем нужный
         $("#result").show(); // Показываем нужный
 
     },
@@ -155,7 +178,7 @@ window.App.Routers.Controller = Backbone.Router.extend({
         if(window.App.FindForm)window.App.FindForm.render();
         else window.App.FindForm = new window.App.Views.FindForm({model:window.App.tbl});
 
-         window.App.temp.newAdd = false;
+        window.App.temp.newAdd = false;
         $("#findForm").show();
     },
 

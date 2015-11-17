@@ -92,21 +92,42 @@ class Cases extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'type' => 'Type',
-			'person' => 'Person',
-			'recipient' => 'Recipient',
-			'comm' => 'Comm',
+			'type' => 'Тип дела',
+			'person' => 'ID Person',
+			'recipient' => 'Получатель ID',
+			'comm' => 'Военкомат ID',
 			'number' => 'Number',
-			'date' => 'Date',
-			'status' => 'Status',
-			'rate' => 'Rate',
-			'need_care' => 'Need Care',
-			'terminated' => 'Terminated',
-			'salary_post' => 'Salary Post',
-			'salary_rank' => 'Salary Rank',
-			'year_inc_percent' => 'Year Inc Percent',
-			'saved_summa' => 'Saved Summa',
-			'include_seniority' => 'include_seniority',
+			'date' => 'Дата заведения дела',
+			'status' => 'Статус',
+			'rate' => 'Рейтинг',
+			'need_care' => 'Нуждается в уходе',
+			'terminated' => 'Прекращено',
+			'salary_post' => 'Должностной оклад',
+			'salary_rank' => 'Оклад по ВЗ',
+			'year_inc_percent' => 'Процентная надбавка',
+			'saved_summa' => 'Сохраненная сумма',
+			'include_seniority' => 'выслуга',
+		);
+	}
+	public function attributeTypes()
+	{
+		return array(
+			'id' => 'ID',
+			'type' => 'string',
+			'person' => 'integer',
+			'recipient' => 'integer',
+			'comm' => 'integer',
+			'number' => 'integer',
+			'date' => 'date',
+			'status' => 'integer',
+			'rate' => 'integer',
+			'need_care' => 'boolean',
+			'terminated' => 'boolean',
+			'salary_post' => 'integer',
+			'salary_rank' => 'integer',
+			'year_inc_percent' => 'integer',
+			'saved_summa' => 'integer',
+			'include_seniority' => 'integer',
 		);
 	}
 
