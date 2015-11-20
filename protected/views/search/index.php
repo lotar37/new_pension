@@ -4,40 +4,39 @@
     #feedback { font-size: 1.4em; }
     #selectable .ui-selecting { background: #FECA40;  }
     #selectable .ui-selected { background: #F39814; color: white; }
-    #selectable { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:350px;height:200px;overflow-y: scroll;}
-    #selectable li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
+    .list { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:350px;height:200px;overflow-y: scroll;}
+    .list li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
     #added .ui-selecting { background: #FECA40; }
     #added .ui-selected { background: #F39814; color: white; }
     #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:200px;overflow-y: scroll;}
     #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
+    p.head {width:350px; color:white;background:black;padding:4px;text-align:center;display:block;}
+    div.tableView{background:#C5FBBD;width:350px;height: 290px;overflow:hidden;}
 </style>
 
 <script>
 $(function() {
-    $("#selectable").draggable();
     window.App.tbl = new window.App.Models.Table();
     //window.App.tbl.url = window.App.tbl.url + "/tableName=" + window.App.tbl.tableName;
-    window.App.tbl.urlshift("Persons");
+    window.App.tbl.setModel("Persons");
     window.App.tbl.fetch({async: false});
     var tbl = new window.App.Models.Table();
-    tbl.urlshift("Persons");
+    tbl.setModel("Persons");
     tbl.fetch({async: false});
-
     var viewTbl = new window.App.Views.Table({model:tbl});
-
-    $("#selectable li").on("click",function (){
-        $("#added").append($(this));
-        window.App.temp.newAdd = true;
-    });
     $("#added").on("click","li", function (){
         $("#selectable").append($(this));
     });
+    var coll = new window.App.Collections.TableAdd();
+    window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
     var controller = new window.App.Routers.Controller(); // Создаём контроллер
     Backbone.history.start();// Запускаем HTML5 History push
     controller.navigate("select", true);
 
 });
 </script>
+
+
     <script  type="text/template" class="li">
         <li class="ui-widget-content" field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
     </script>
@@ -59,6 +58,13 @@ $(function() {
         <tr person="<%= id %>">  <td class="" >ФИО:<%= second_name %> <%= first_name %> <%= third_name %> <%= birth_date %> </td>
         </tr>
     </script>
+    <script  type="text/template" class="tableView">
+    <div id="view_<%= tableName %>" class="tableView">
+        <p class="head"><%= tableName %></p>
+        <ol  class="list"></ol>
+
+    </div>
+    </script>
 
 
 
@@ -69,16 +75,15 @@ $(function() {
 <div id="select" class="block">
 
 <table>
-    <th>Таблица:Person</th>
-    <th>Выбранные поля</th>
-    <tr><td>
-<ol id="selectable" style="background:#bbbbbb">
+<tr><td>
+        <ol id="added"  style="background:#bbbbbb">
 
-</ol>
+        </ol>
+    </td></tr>
+    <tr><td class="tables">
+
 </td><td>
-<ol id="added"  style="background:#bbbbbb">
 
-</ol>
 </td>
     </tr>
 </table>

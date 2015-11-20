@@ -8,18 +8,28 @@ window.App = {
     Routers : {},
     temp : {newAdd:false},
     tbl : {},
-    findForm:false
+    findForm:false,
+    tblAdd: {}
 };
 //Backbone.sync = function(method, model, options) {
 //    //options = "async:false";
 //};
+
+window.App.Models.TableAdd  = Backbone.Model.extend({
+    default:{
+        title:"",
+        table:"",
+        field:""
+    }
+});
+window.App.Collections.TableAdd = Backbone.Collection.extend({
+    model:window.App.Models.TableAdd,
+});
 window.App.Models.Table  = Backbone.Model.extend({
     tableName:"defaultTable",
     url: './search/getModelAttributes',
 
-    defaults: {
-    },
-    urlshift: function(tableName){
+    setModel: function(tableName){
         this.tableName = tableName;
         this.url = this.url + "?tableName=" + tableName;
     },
@@ -31,18 +41,47 @@ window.App.Models.Result  = Backbone.Model.extend({
     initialize:function(){
     }
 });
+window.App.Views.TableAdd = Backbone.View.extend({
+    el:$("#added"),
+    template:_.template($(".li").html()),
+    initialize:function(){
+        this.collection.bind("add", this.fun2, this);
+        //this.render();
+    },
+    render:function(){
+        this.$el.empty();
+        console.log(this.models);
+        this.collection.each(function(per){
+            console.log(per.attributes);
+            this.$el.append(this.template({tableAttr:per.attributes.title, field:per.attributes.field, table:per.attributes.table}));
+        },this);
+    },
+    fun2:function(){
+       // console.log(this.collection);
+        this.render();
+    },
+});
 window.App.Views.Table = Backbone.View.extend({
-    el:$("#selectable"),
     template: _.template($(".li").html()),
+    templateTable: _.template($(".tableView").html()),
     initialize:function(){
          this.render();
     },
-    render:function(){
-        //this.model.tableName = "eee";
-        //console.log(this.model.tableName);
+     render:function(){
+        $(".tables").append(this.templateTable({tableName:this.model.tableName}));
+        this.$el = $("#view_" + this.model.tableName + " ol");
         _.each(this.model.attributes, function(num, key){
             this.$el.append(this.template({tableAttr:num.attr, field:key, table:this.model.tableName}));
         },this);
+        $("#view_" + this.model.tableName).draggable({ handle: "p" });
+        $("#view_" + this.model.tableName + " li").on("click",function (){
+            //console.log(this);
+            //$("#added").append($(this));
+            window.App.tblAdd.collection.add({"title":$(this).attr("title"),"table":$(this).attr("table"),"field":$(this).attr("field")});
+            window.App.temp.newAdd = true;
+            $(this).remove();
+        });
+
     }
 });
 window.App.Views.FindForm = Backbone.View.extend({
@@ -181,6 +220,4 @@ window.App.Routers.Controller = Backbone.Router.extend({
         window.App.temp.newAdd = false;
         $("#findForm").show();
     },
-
 });
-
