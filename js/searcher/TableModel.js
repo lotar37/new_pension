@@ -22,9 +22,52 @@ window.App.Models.TableAdd  = Backbone.Model.extend({
         field:""
     }
 });
+window.App.Models.TableField  = Backbone.Model.extend({
+    default:{
+        title:"",
+        type:"",
+        field:""
+    }
+});
 window.App.Collections.TableAdd = Backbone.Collection.extend({
     model:window.App.Models.TableAdd,
+
 });
+window.App.Views.Table2 = Backbone.View.extend({
+    template: _.template($(".li").html()),
+    templateTable: _.template($(".tableView").html()),
+    initialize:function(){
+        this.collection.fetch({async: false});
+    },
+    render:function(){
+
+        console.log(this.collection);
+        $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
+        this.$el = $("#view_" + this.collection.tableName + " ol");
+        this.collection.each(function(field){
+            this.$el.append(this.template({tableAttr:field.attributes.title, field:field.attributes.field, table:this.collection.tableName}));
+        },this);
+        $("#view_" + this.collection.tableName).draggable({ handle: "p" });
+        $("#view_" + this.collection.tableName + " li").on("click",function (){
+            window.App.tblAdd.collection.add({"title":$(this).attr("title"),"table":$(this).attr("table"),"field":$(this).attr("field")});
+            window.App.temp.newAdd = true;
+            $(this).remove();
+        });
+    }
+});
+window.App.Collections.Table = Backbone.Collection.extend({
+    tableName:"Persons",
+    model:window.App.Models.TableField,
+    url:"./search/getModelAttributes",
+    setModel: function(tableName){
+        this.tableName = tableName;
+        this.url = this.url + "?tableName=" + tableName;
+    },
+    initialize: function(){
+        this.url +=  "?tableName=" + this.tableName;
+    },
+});
+
 window.App.Models.Table  = Backbone.Model.extend({
     tableName:"defaultTable",
     url: './search/getModelAttributes',
@@ -81,7 +124,6 @@ window.App.Views.Table = Backbone.View.extend({
             window.App.temp.newAdd = true;
             $(this).remove();
         });
-
     }
 });
 window.App.Views.FindForm = Backbone.View.extend({

@@ -17,19 +17,15 @@
 <script>
 $(function() {
     window.App.tbl = new window.App.Models.Table();
-    //window.App.tbl.url = window.App.tbl.url + "/tableName=" + window.App.tbl.tableName;
     window.App.tbl.setModel("Persons");
     window.App.tbl.fetch({async: false});
-    var tbl = new window.App.Models.Table();
-    tbl.setModel("Persons");
-    tbl.fetch({async: false});
-    var viewTbl = new window.App.Views.Table({model:tbl});
-    $("#added").on("click","li", function (){
-        $("#selectable").append($(this));
-    });
     var coll = new window.App.Collections.TableAdd();
     window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
+    var newTable = new window.App.Collections.Table({tableName:"Persons"});
+    var c = new window.App.Views.Table2({collection:newTable});
+    c.render();
     var controller = new window.App.Routers.Controller(); // Создаём контроллер
+
     Backbone.history.start();// Запускаем HTML5 History push
     controller.navigate("select", true);
 
