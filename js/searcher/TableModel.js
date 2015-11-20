@@ -19,7 +19,8 @@ window.App.Models.TableAdd  = Backbone.Model.extend({
     default:{
         title:"",
         table:"",
-        field:""
+        field:"",
+        type:""
     }
 });
 window.App.Models.TableField  = Backbone.Model.extend({
@@ -40,16 +41,26 @@ window.App.Views.Table2 = Backbone.View.extend({
         this.collection.fetch({async: false});
     },
     render:function(){
-
         console.log(this.collection);
         $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
         this.$el = $("#view_" + this.collection.tableName + " ol");
         this.collection.each(function(field){
-            this.$el.append(this.template({tableAttr:field.attributes.title, field:field.attributes.field, table:this.collection.tableName}));
+          //  console.log(field);
+            this.$el.append(this.template({
+                tableAttr:field.attributes.title,
+                field:field.attributes.field,
+                type:field.attributes.type,
+                table:this.collection.tableName
+            }));
         },this);
         $("#view_" + this.collection.tableName).draggable({ handle: "p" });
         $("#view_" + this.collection.tableName + " li").on("click",function (){
-            window.App.tblAdd.collection.add({"title":$(this).attr("title"),"table":$(this).attr("table"),"field":$(this).attr("field")});
+            console.log(this);
+            window.App.tblAdd.collection.add({
+                "title":$(this).attr("title"),
+                "type":$(this).attr("type"),
+                "table":$(this).attr("table"),
+                "field":$(this).attr("field")});
             window.App.temp.newAdd = true;
             $(this).remove();
         });
@@ -96,35 +107,13 @@ window.App.Views.TableAdd = Backbone.View.extend({
         console.log(this.models);
         this.collection.each(function(per){
             console.log(per.attributes);
-            this.$el.append(this.template({tableAttr:per.attributes.title, field:per.attributes.field, table:per.attributes.table}));
+            this.$el.append(this.template({tableAttr:per.attributes.title, field:per.attributes.field, table:per.attributes.table, type:per.attributes.type}));
         },this);
     },
     fun2:function(){
        // console.log(this.collection);
         this.render();
     },
-});
-window.App.Views.Table = Backbone.View.extend({
-    template: _.template($(".li").html()),
-    templateTable: _.template($(".tableView").html()),
-    initialize:function(){
-         this.render();
-    },
-     render:function(){
-        $(".tables").append(this.templateTable({tableName:this.model.tableName}));
-        this.$el = $("#view_" + this.model.tableName + " ol");
-        _.each(this.model.attributes, function(num, key){
-            this.$el.append(this.template({tableAttr:num.attr, field:key, table:this.model.tableName}));
-        },this);
-        $("#view_" + this.model.tableName).draggable({ handle: "p" });
-        $("#view_" + this.model.tableName + " li").on("click",function (){
-            //console.log(this);
-            //$("#added").append($(this));
-            window.App.tblAdd.collection.add({"title":$(this).attr("title"),"table":$(this).attr("table"),"field":$(this).attr("field")});
-            window.App.temp.newAdd = true;
-            $(this).remove();
-        });
-    }
 });
 window.App.Views.FindForm = Backbone.View.extend({
     templateB : _.template($(".addedBooleanField").html()),
@@ -135,14 +124,11 @@ window.App.Views.FindForm = Backbone.View.extend({
         this.render();
     },
     render:function(){
-        var d = this.model.attributes;
         $(".addedFields").empty();
-        for(var j=0;j<$("#added li").size();j++) {
-            var obj = $("#added li")[j];
-            var a = _.values(_.pick(d, $(obj).attr("field")));
-            b = a[0];
-            var dateJ = {title:$(obj).attr("title"),field:$(obj).attr("field"),type: b.type, table:$(obj).attr("table")};
-            switch(b.type){
+         window.App.tblAdd.collection.each(function(field){
+            console.log(field);
+            var dateJ = {title:field.attributes.title,field:field.attributes.field ,type: field.attributes.type, table:field.attributes.table};
+            switch(field.attributes.type){
                 case "boolean":$(".addedFields").append(this.templateB(dateJ));
                     break;
                 case "string" : $(".addedFields").append(this.templateS(dateJ));
@@ -151,7 +137,7 @@ window.App.Views.FindForm = Backbone.View.extend({
                     break;
                 case "date" : $(".addedFields").append(this.templateD(dateJ));
              }
-        }
+        },this);
         $(".inputdate").inputmask("d.m.y");
         $(".inputinteger").inputmask("integer");
 
@@ -203,6 +189,18 @@ window.App.Routers.Controller = Backbone.Router.extend({
         $(".block").hide(); // Прячем все блоки
         $("#select").show(); // Показываем нужный
     },
+    findForm: function () {
+        $(".block").hide();
+        if(!window.App.temp.newAdd){
+            $("#findForm").show();
+            return;
+        }
+        if(window.App.FindForm)window.App.FindForm.render();
+        else window.App.FindForm = new window.App.Views.FindForm({model:window.App.tbl});
+
+        window.App.temp.newAdd = false;
+        $("#findForm").show();
+    },
     result: function () {
         $(".block").hide(); // Прячем все блоки
         var coll = $("#findForm td.data");
@@ -249,17 +247,5 @@ window.App.Routers.Controller = Backbone.Router.extend({
         $("#findForm").show(); // Показываем нужный
         $("#result").show(); // Показываем нужный
 
-    },
-    findForm: function () {
-        $(".block").hide();
-        if(!window.App.temp.newAdd){
-            $("#findForm").show();
-            return;
-        }
-        if(window.App.FindForm)window.App.FindForm.render();
-        else window.App.FindForm = new window.App.Views.FindForm({model:window.App.tbl});
-
-        window.App.temp.newAdd = false;
-        $("#findForm").show();
     },
 });

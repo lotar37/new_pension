@@ -34,7 +34,7 @@ $(function() {
 
 
     <script  type="text/template" class="li">
-        <li class="ui-widget-content" field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
+        <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
     </script>
     <script  type="text/template" class="addedIntegerField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
