@@ -21,9 +21,14 @@ $(function() {
     window.App.tbl.fetch({async: false});
     var coll = new window.App.Collections.TableAdd();
     window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
-    var newTable = new window.App.Collections.Table({tableName:"Persons"});
-    var c = new window.App.Views.Table2({collection:newTable});
+    var newTable = new window.App.Collections.dbTable();
+    newTable.setModel("Persons");
+    var c = new window.App.Views.dbTable({collection:newTable});
     c.render();
+    var newTableCases = new window.App.Collections.dbTable();
+    newTableCases.setModel("Cases");
+    var cCases = new window.App.Views.dbTable({collection:newTableCases});
+    cCases.render();
     var controller = new window.App.Routers.Controller(); // Создаём контроллер
 
     Backbone.history.start();// Запускаем HTML5 History push

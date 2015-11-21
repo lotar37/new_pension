@@ -15,7 +15,7 @@ window.App = {
 //    //options = "async:false";
 //};
 
-window.App.Models.TableAdd  = Backbone.Model.extend({
+window.App.Models.FieldAdd  = Backbone.Model.extend({
     default:{
         title:"",
         table:"",
@@ -23,7 +23,7 @@ window.App.Models.TableAdd  = Backbone.Model.extend({
         type:""
     }
 });
-window.App.Models.TableField  = Backbone.Model.extend({
+window.App.Models.dbTableField  = Backbone.Model.extend({
     default:{
         title:"",
         type:"",
@@ -31,10 +31,10 @@ window.App.Models.TableField  = Backbone.Model.extend({
     }
 });
 window.App.Collections.TableAdd = Backbone.Collection.extend({
-    model:window.App.Models.TableAdd,
+    model:window.App.Models.FieldAdd,
 
 });
-window.App.Views.Table2 = Backbone.View.extend({
+window.App.Views.dbTable = Backbone.View.extend({
     template: _.template($(".li").html()),
     templateTable: _.template($(".tableView").html()),
     initialize:function(){
@@ -66,16 +66,16 @@ window.App.Views.Table2 = Backbone.View.extend({
         });
     }
 });
-window.App.Collections.Table = Backbone.Collection.extend({
+window.App.Collections.dbTable = Backbone.Collection.extend({
     tableName:"Persons",
-    model:window.App.Models.TableField,
+    model:window.App.Models.dbTableField,
     url:"./search/getModelAttributes",
     setModel: function(tableName){
         this.tableName = tableName;
         this.url = this.url + "?tableName=" + tableName;
     },
     initialize: function(){
-        this.url +=  "?tableName=" + this.tableName;
+       // this.url +=  "?tableName=" + this.tableName;
     },
 });
 
