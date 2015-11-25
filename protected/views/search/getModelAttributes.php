@@ -14,6 +14,7 @@ $arr2 = $tables->attributeTypes();
 $result = array();
 foreach($arr as $k=>$v){
     $type = isset($arr2[$k])? $arr2[$k] : "string";
-    $result[] = array("title"=>$v,"type"=>$type, "field"=>$k);
+    $result[$k] = array("title"=>$v,"type"=>$type, "field"=>$k);
 }
+//var_dump($result);
 echo json_encode($result);

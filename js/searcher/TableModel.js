@@ -25,37 +25,53 @@ window.App.Models.FieldAdd  = Backbone.Model.extend({
 });
 window.App.Models.dbTableField  = Backbone.Model.extend({
     default:{
-        title:"",
-        type:"",
-        field:""
+        field:{
+            title:"",
+            type:"",
+            field:""
+        },
     }
 });
 window.App.Collections.TableAdd = Backbone.Collection.extend({
     model:window.App.Models.FieldAdd,
-
 });
 window.App.Views.dbTable = Backbone.View.extend({
     template: _.template($(".li").html()),
     templateTable: _.template($(".tableView").html()),
     initialize:function(){
         this.collection.fetch({async: false});
+
+       // this.collection.reset();
     },
     render:function(){
-        console.log(this.collection);
+        //console.log(this.collection.get("id"));
         $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
         this.$el = $("#view_" + this.collection.tableName + " ol");
-        this.collection.each(function(field){
-          //  console.log(field);
+        console.log(this.collection.models[0].attributes);
+        //this.collection.each(function(fields,idd) {
+        //    console.log(idd);
+        //    _.each(fields.attributes, function (field, id) {
+        //        ///console.log(field);
+        //        //console.log(field.title + " - " + field.field + " - " + field.type + " - " + this.collection.tableName);
+        //        this.$el.append(this.template({
+        //            tableAttr: field.title,
+        //            field: field.field,
+        //            type: field.type,
+        //            table: this.collection.tableName
+        //        }));
+        //    }, this);
+        //},this);
+        _.each(this.collection.models[0].attributes, function(field,id){
             this.$el.append(this.template({
-                tableAttr:field.attributes.title,
-                field:field.attributes.field,
-                type:field.attributes.type,
-                table:this.collection.tableName
+                tableAttr: field.title,
+                field: field.field,
+                type: field.type,
+                table: this.collection.tableName
             }));
         },this);
-        $("#view_" + this.collection.tableName).draggable({ handle: "p" });
+        $("#view_" + this.collection.tableName).draggable({ handle: "p" ,  containment: "parent"});
         $("#view_" + this.collection.tableName + " li").on("click",function (){
-            console.log(this);
+            //console.log(this);
             window.App.tblAdd.collection.add({
                 "title":$(this).attr("title"),
                 "type":$(this).attr("type"),
@@ -126,7 +142,7 @@ window.App.Views.FindForm = Backbone.View.extend({
     render:function(){
         $(".addedFields").empty();
          window.App.tblAdd.collection.each(function(field){
-            console.log(field);
+            //console.log(field);
             var dateJ = {title:field.attributes.title,field:field.attributes.field ,type: field.attributes.type, table:field.attributes.table};
             switch(field.attributes.type){
                 case "boolean":$(".addedFields").append(this.templateB(dateJ));
@@ -140,6 +156,10 @@ window.App.Views.FindForm = Backbone.View.extend({
         },this);
         $(".inputdate").inputmask("d.m.y");
         $(".inputinteger").inputmask("integer");
+        $("input").on("blur",function(){
+            console.log($(this).parent().prev().attr("field"));
+            console.log($(this).val());
+        });
 
     }
 });

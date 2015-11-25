@@ -23,7 +23,9 @@ $(function() {
     window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
     var newTable = new window.App.Collections.dbTable();
     newTable.setModel("Persons");
+//    newTable.reset(<%= @c.toJSON %>);
     var c = new window.App.Views.dbTable({collection:newTable});
+
     c.render();
     var newTableCases = new window.App.Collections.dbTable();
     newTableCases.setModel("Cases");
@@ -45,10 +47,12 @@ $(function() {
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
     </script>
     <script  type="text/template" class="addedStringField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" /> </td></tr>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
+            <td><input type="text" /> </td></tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="checkbox" checked/> </td></tr>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
+            <td><input type="checkbox" checked/> </td></tr>
     </script>
     <script  type="text/template" class="addedDateField">
         <tr>  <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %></td>
