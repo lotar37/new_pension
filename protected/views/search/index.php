@@ -43,24 +43,34 @@ $(function() {
     <script  type="text/template" class="li">
         <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
     </script>
+    <script  type="text/template" class="li-add">
+        <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= table %>.<%= tableAttr %></b></li>
+    </script>
     <script  type="text/template" class="addedIntegerField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td></tr>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td>
+            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+        </tr>
     </script>
     <script  type="text/template" class="addedStringField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
-            <td><input type="text" /> </td></tr>
+            <td><input type="text" /> </td>
+            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+        </tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
-            <td><input type="checkbox" checked/> </td></tr>
+            <td><input type="checkbox" checked/> </td>
+            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+        </tr>
     </script>
     <script  type="text/template" class="addedDateField">
         <tr>  <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %></td>
             <td> от:<input type="text" class="inputdate begin"/> до:<input type="text"  class="inputdate end"/> </td>
+            <td><input class="onscreen" type="checkbox" checked="checked"></td>
         </tr>
     </script>
     <script  type="text/template" class="person">
-        <tr person="<%= id %>">  <td class="" >ФИО:<%= second_name %> <%= first_name %> <%= third_name %> <%= birth_date %> </td>
+        <tr person="<%= id %>"><td class="" >ФИО:<%= second_name %> <%= first_name %> <%= third_name %> <%= birth_date %> </td>
         </tr>
     </script>
     <script  type="text/template" class="tableView">
@@ -78,7 +88,7 @@ $(function() {
 <h1>Построитель запросов</h1>
 
 <div id="select" class="block">
-
+    <a href="#!/findForm">Далее</a>
 <table>
 <tr><td>
         <ol id="added"  style="background:#bbbbbb">
@@ -92,7 +102,7 @@ $(function() {
 </td>
     </tr>
 </table>
-    <a href="#!/findForm">Далее</a>
+
 </div>
 <div id="findForm" class="block">
     <h3> Выбраны поля</h3>

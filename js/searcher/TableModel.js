@@ -48,19 +48,6 @@ window.App.Views.dbTable = Backbone.View.extend({
         $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
         this.$el = $("#view_" + this.collection.tableName + " ol");
         console.log(this.collection.models[0].attributes);
-        //this.collection.each(function(fields,idd) {
-        //    console.log(idd);
-        //    _.each(fields.attributes, function (field, id) {
-        //        ///console.log(field);
-        //        //console.log(field.title + " - " + field.field + " - " + field.type + " - " + this.collection.tableName);
-        //        this.$el.append(this.template({
-        //            tableAttr: field.title,
-        //            field: field.field,
-        //            type: field.type,
-        //            table: this.collection.tableName
-        //        }));
-        //    }, this);
-        //},this);
         _.each(this.collection.models[0].attributes, function(field,id){
             this.$el.append(this.template({
                 tableAttr: field.title,
@@ -113,7 +100,7 @@ window.App.Models.Result  = Backbone.Model.extend({
 });
 window.App.Views.TableAdd = Backbone.View.extend({
     el:$("#added"),
-    template:_.template($(".li").html()),
+    template:_.template($(".li-add").html()),
     initialize:function(){
         this.collection.bind("add", this.fun2, this);
         //this.render();
@@ -141,7 +128,8 @@ window.App.Views.FindForm = Backbone.View.extend({
     },
     render:function(){
         $(".addedFields").empty();
-         window.App.tblAdd.collection.each(function(field){
+        $(".addedFields").append("<th>Поле</th><th>Поиск</th><th>Выводить на экран</th>");
+        window.App.tblAdd.collection.each(function(field){
             //console.log(field);
             var dateJ = {title:field.attributes.title,field:field.attributes.field ,type: field.attributes.type, table:field.attributes.table};
             switch(field.attributes.type){
@@ -232,6 +220,9 @@ window.App.Routers.Controller = Backbone.Router.extend({
             var obj = $("#findForm td.data")[j];
             var obj2 = $(obj).siblings()[0];
             var obj3 = $(obj2).children("input");
+            var siblCheck = $(obj).siblings()[1];
+
+            var onscreen = $(siblCheck).children("input");
             tables.push($(obj).attr("table"));
             if($(obj).attr("type")== "date") {
                 arr.push({
@@ -239,15 +230,17 @@ window.App.Routers.Controller = Backbone.Router.extend({
                     field: $(obj).attr("field"),
                     table: $(obj).attr("table"),
                     begin: $(obj3[0]).val(),
-                    end: $(obj3[1]).val()
+                    end: $(obj3[1]).val(),
+                    onscreen: $(onscreen).prop("checked") ? 1 : 0
                 });
             }else{
                 arr.push({
                     type:$(obj).attr("type"),
                     field:$(obj).attr("field"),
                     table: $(obj).attr("table"),
-                    val:$(obj3[0]).val()
-                });
+                    val:$(obj3[0]).val(),
+                    onscreen: $(onscreen).prop("checked") ? 1 : 0
+        });
             }
             i++;
         }
