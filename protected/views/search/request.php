@@ -33,9 +33,9 @@ foreach($_GET["d"] as $k=>$one){
     }
 }
 //$sql = "SELECT DISTINCT persons.id ,persons.second_name, persons.first_name, persons.third_name, persons.birth_date, cases.number,cases.type FROM $from WHERE ";
-$sql = "SELECT DISTINCT ".$fields." FROM ".$from." WHERE ".$conditions." LIMIT 10 OFFSET 1";
+$sql = "SELECT DISTINCT ".$fields." FROM ".$from." WHERE ".$conditions." LIMIT 100 OFFSET 1";
 
-echo $sql;
+//echo $sql;
 $Result = dbRequest($sql);
 //$Result2 = dbRequest($sql2);
 //var_dump($Result2->readAll());

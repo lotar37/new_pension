@@ -74,11 +74,13 @@ $(function() {
         </tr>
     </script>
     <script  type="text/template" class="tableView">
+        <td>
     <div id="view_<%= tableName %>" class="tableView">
         <p class="head"><%= tableName %></p>
         <ol  class="list"></ol>
 
     </div>
+        </td>
     </script>
 
 
@@ -95,11 +97,7 @@ $(function() {
 
         </ol>
     </td></tr>
-    <tr><td class="tables">
-
-</td><td>
-
-</td>
+    <tr class="tables">
     </tr>
 </table>
 

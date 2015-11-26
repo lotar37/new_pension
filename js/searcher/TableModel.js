@@ -47,7 +47,7 @@ window.App.Views.dbTable = Backbone.View.extend({
         //console.log(this.collection.get("id"));
         $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
         this.$el = $("#view_" + this.collection.tableName + " ol");
-        console.log(this.collection.models[0].attributes);
+        //console.log(this.collection.models[0].attributes);
         _.each(this.collection.models[0].attributes, function(field,id){
             this.$el.append(this.template({
                 tableAttr: field.title,
@@ -130,7 +130,6 @@ window.App.Views.FindForm = Backbone.View.extend({
         $(".addedFields").empty();
         $(".addedFields").append("<th>Поле</th><th>Поиск</th><th>Выводить на экран</th>");
         window.App.tblAdd.collection.each(function(field){
-            //console.log(field);
             var dateJ = {title:field.attributes.title,field:field.attributes.field ,type: field.attributes.type, table:field.attributes.table};
             switch(field.attributes.type){
                 case "boolean":$(".addedFields").append(this.templateB(dateJ));
@@ -257,7 +256,7 @@ window.App.Routers.Controller = Backbone.Router.extend({
                 var res = new window.App.Views.Result({model:tab});
             }
         });
-        $("#findForm").show(); // Показываем нужный
+        //$("#findForm").show(); // Показываем нужный
         $("#result").show(); // Показываем нужный
 
     },
