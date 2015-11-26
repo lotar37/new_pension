@@ -16,11 +16,12 @@ if(count($_GET["tables"])==1) $from = "public.".$_GET["tables"][0];
 else $from = " cases INNER JOIN persons ON cases.person = persons.id ";
 
 $fields = "";
-
+$emptyallval = true;
 if(isset($_GET["d"]))
 foreach($_GET["d"] as $k=>$one){
     if($one["onscreen"])$fields .= ($fields ? ", " : "").$one["table"].".".$one["field"];
     $field = $one["table"].".".$one["field"];
+    if($one["val"])$emptyallval = false;
     switch($one["type"]){
         case "string" : if($one["val"])$conditions .= ($conditions ? " AND ": "").$field." ILIKE '%".trim($one["val"])."%' ";
         break;
@@ -32,7 +33,7 @@ foreach($_GET["d"] as $k=>$one){
 
     }
 }
-//$sql = "SELECT DISTINCT persons.id ,persons.second_name, persons.first_name, persons.third_name, persons.birth_date, cases.number,cases.type FROM $from WHERE ";
+if($emptyallval) $conditions = "true";
 $sql = "SELECT DISTINCT ".$fields." FROM ".$from." WHERE ".$conditions." LIMIT 100 OFFSET 1";
 
 //echo $sql;
