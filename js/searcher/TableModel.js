@@ -9,6 +9,7 @@ window.App = {
     temp : {newAdd:false},
     tbl : {},
     findForm:false,
+    Result:false,
     tblAdd: {}
 };
 //Backbone.sync = function(method, model, options) {
@@ -44,35 +45,61 @@ window.App.Views.FindForm = Backbone.View.extend({
         $(".addedFields").empty();
         $(".addedFields").append("<th>Поле</th><th>Поиск</th><th>Выводить на экран</th>");
         window.App.tblAdd.collection.each(function(field){
-            var dateJ = {title:field.attributes.title,field:field.attributes.field ,type: field.attributes.type, table:field.attributes.table};
+            var dataJ = {
+                title:field.attributes.title,
+                field:field.attributes.field ,
+                type: field.attributes.type,
+                table:field.attributes.table,
+                visible:field.attributes.visible ? "checked" : ""
+
+            };
+
             switch(field.attributes.type){
-                case "boolean":$(".addedFields").append(this.templateB(dateJ));
+                case "boolean":
+                    dataJ.value = dataJ.value ? "checked" : "";
+                    $(".addedFields").append(this.templateB(dataJ));
                     break;
-                case "string" : $(".addedFields").append(this.templateS(dateJ));
+                case "string" :
+                    dataJ.value = field.attributes.value;
+                    $(".addedFields").append(this.templateS(dataJ));
                     break;
-                case "integer": $(".addedFields").append(this.templateI(dateJ));
+                case "integer":
+                    dataJ.value = field.attributes.value;
+                    $(".addedFields").append(this.templateI(dataJ));
                     break;
-                case "date" : $(".addedFields").append(this.templateD(dateJ));
+                case "date" :
+                    dataJ.begin = field.attributes.begin;
+                    dataJ.end = field.attributes.end;
+                    $(".addedFields").append(this.templateD(dataJ));
              }
         },this);
         $(".inputdate").inputmask("d.m.y");
         $(".inputinteger").inputmask("integer");
         $("input").on("change",function() {
-            var mod = window.App.tblAdd.collection.where({
-                    "table": $(this).parent().prev().attr("table"),
-                    "field": $(this).parent().prev().attr("field")
-                }
-            );
-            var b = mod[0];
             if ($(this).attr("type") == "text") {
-                b.set({value: $(this).val()});
+                var mod = window.App.tblAdd.collection.where({
+                        "table": $(this).parent().prev().attr("table"),
+                        "field": $(this).parent().prev().attr("field")
+                    }
+                );
+                var b = mod[0];
+                if($(this).hasClass("begin"))b.set({begin: $(this).val()});
+                else if($(this).hasClass("end"))b.set({end: $(this).val()});
+                else b.set({value: $(this).val()});
                // console.log($(this).parent().prev());
-            } else if($(this).attr("type") == "checkbox"){
+            } else if($(this).hasClass("onscreen")){
               //  console.log($(this).prop("checked"));
+                var mod = window.App.tblAdd.collection.where({
+                        "table": $(this).parent().prev().prev().attr("table"),
+                        "field": $(this).parent().prev().prev().attr("field")
+                    }
+                );
+                var b = mod[0];
                 b.set({visible: $(this).prop("checked")});
             }
             window.App.tblAdd.collection.remove(mod, {silent: true});
             window.App.tblAdd.collection.add(b, {silent: true});
+            console.log(window.App.tblAdd.collection);
         });
     }
 });
@@ -85,9 +112,55 @@ window.App.Views.Result  = Backbone.View.extend({
     el:$(".resultTable"),
     template :   _.template($(".person").html()),
     initialize:function(){
-        this.render();
+        //this.render();
     },
     render:function(){
+        var coll = $("#findForm td.data");
+//        var mod = new Backbone.Model.extend();
+        var arr = [];
+        var tables = [];
+        var i = 0;
+        window.App.tblAdd.collection.each(function(field){
+            var onscreen = (typeof field.attributes.visible == "undefined") ? true : field.attributes.visible;
+            tables.push(field.attributes.table);
+            if(field.attributes.type == "date") {
+                arr.push({
+                    title:field.attributes.title,
+                    field:field.attributes.field ,
+                    table:field.attributes.table,
+                    type:field.attributes.type,
+                    begin: field.attributes.begin,
+                    end: field.attributes.end,
+                    onscreen: onscreen ? 1 : 0
+                });
+            }else{
+                arr.push({
+                    title:field.attributes.title,
+                    field:field.attributes.field ,
+                    table:field.attributes.table,
+                    type:field.attributes.type,
+                    val:(typeof field.attributes.value == "undefined") ? "" : field.attributes.value,
+                    onscreen: onscreen ? 1 : 0
+                });
+            }
+            i++;
+        });
+        var tableUnion = _.union(tables);
+        console.log(arr);
+        $.ajax({
+            url: './search/request',
+            async: false,
+            dataType: 'json',
+            data:{d:arr,tables:tableUnion},
+            success: function (datas) {
+                window.App.Result.model = new window.App.Models.Result(datas);
+                window.App.Result.drowReport();
+            }
+        },this);
+
+
+    },
+    drowReport:function(){
         this.$el.empty();
         _.each(this.model.attributes, function(obj, key){
             if(key>0)return 0;
@@ -113,4 +186,5 @@ window.App.Views.Result  = Backbone.View.extend({
         },this);
 
     },
+
 });

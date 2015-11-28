@@ -51,12 +51,27 @@ window.App.Views.dbTable = Backbone.View.extend({
                     "field":$(this).attr("field")}
             );
             if(coll.length == 0) {
-                window.App.tblAdd.collection.add({
-                    "type": $(this).attr("type"),
-                    "title": $(this).attr("title"),
-                    "table": $(this).attr("table"),
-                    "field": $(this).attr("field")
-                });
+                if($(this).attr("type")=="date") {
+                    window.App.tblAdd.collection.add({
+                        "type": $(this).attr("type"),
+                        "title": $(this).attr("title"),
+                        "table": $(this).attr("table"),
+                        "field": $(this).attr("field"),
+                        "begin": "",
+                        "end": "",
+                        "visible": true
+                    });
+                }else{
+                    window.App.tblAdd.collection.add({
+                        "type": $(this).attr("type"),
+                        "title": $(this).attr("title"),
+                        "table": $(this).attr("table"),
+                        "field": $(this).attr("field"),
+                        "value": "",
+                        "visible": true
+                    });
+
+                }
                 window.App.temp.newAdd = true;
             }
             //$(this).remove();

@@ -61,26 +61,30 @@ $(function() {
         <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= table %>.<%= tableAttr %></b></li>
     </script>
     <script  type="text/template" class="addedIntegerField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td><td><input type="text" class="inputinteger"/> </td>
-            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
+            <td><input type="text" class="inputinteger"  value="<%= value %>" /> </td>
+            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
     <script  type="text/template" class="addedStringField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
-            <td><input type="text" /> </td>
-            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+            <td><input type="text" class="inputstring"  value="<%= value %>" /> </td>
+            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"  /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
-            <td><input type="checkbox" checked/> </td>
-            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+            <td><input type="checkbox" checked="<%= value %>"/> </td>
+            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
     <script  type="text/template" class="addedDateField">
         <tr>  <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %></td>
-            <td> от:<input type="text" class="inputdate begin"/> до:<input type="text"  class="inputdate end"/> </td>
-            <td><input class="onscreen" type="checkbox" checked="checked"></td>
+            <td>
+                от:<input type="text" class="inputdate begin"  value="<%=begin%>" />
+                до:<input type="text"  class="inputdate end"  value="<%=end%>" />
+            </td>
+            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
     <script  type="text/template" class="person">

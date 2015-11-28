@@ -6,7 +6,9 @@ window.App.Models.FieldAdd  = Backbone.Model.extend({
         title:"",
         table:"",
         field:"",
-        type:""
+        type:"",
+        value:"",
+        visible:true
     }
 });
 window.App.Collections.TableAdd = Backbone.Collection.extend({
@@ -22,10 +24,16 @@ window.App.Views.TableAdd = Backbone.View.extend({
     },
     render:function(){
         this.$el.empty();
-        console.log(this.models);
         this.collection.each(function(per){
             console.log(per.attributes);
-            this.$el.append(this.template({tableAttr:per.attributes.title, field:per.attributes.field, table:per.attributes.table, type:per.attributes.type}));
+            this.$el.append(
+                this.template({
+                    tableAttr:per.attributes.title,
+                    field:per.attributes.field,
+                    table:per.attributes.table,
+                    type:per.attributes.type
+                })
+            );
         },this);
         $("#added li").on("click",function(){
             //    console.log(this);

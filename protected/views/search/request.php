@@ -21,7 +21,9 @@ if(isset($_GET["d"]))
 foreach($_GET["d"] as $k=>$one){
     if($one["onscreen"])$fields .= ($fields ? ", " : "").$one["table"].".".$one["field"];
     $field = $one["table"].".".$one["field"];
-    if($one["val"])$emptyallval = false;
+    if(isset($one["val"]) && $one["val"])$emptyallval = false;
+    if(isset($one["begin"]) && $one["begin"])$emptyallval = false;
+    if(isset($one["end"]) && $one["end"])$emptyallval = false;
     switch($one["type"]){
         case "string" : if($one["val"])$conditions .= ($conditions ? " AND ": "").$field." ILIKE '%".trim($one["val"])."%' ";
         break;
@@ -29,7 +31,11 @@ foreach($_GET["d"] as $k=>$one){
             break;
         case "boolean" : if($one["val"]) $conditions .= ($conditions ? " AND " : "") . $field . " = '1' ";
             break;
-        case "date": if($one["begin"] || $one["end"])$conditions .= ($conditions ? " AND ": "").$field." > '".date('Y-M-d', CDateTimeParser::parse($one["begin"], "d.M.y"))."' ";
+        case "date":
+            if($one["begin"])
+                $conditions .= ($conditions ? " AND ": "").$field." > '".date('Y-M-d', CDateTimeParser::parse($one["begin"], "d.M.y"))."' ";
+            if( $one["end"])
+                $conditions .= ($conditions ? " AND ": "").$field." < '".date('Y-M-d', CDateTimeParser::parse($one["end"], "d.M.y"))."' ";
 
     }
 }
