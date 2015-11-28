@@ -27,6 +27,9 @@
 	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/underscore.js',CClientScript::POS_END);
 	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/backbone.js',CClientScript::POS_END);
 	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/searcher/TableModel.js',CClientScript::POS_END);
+	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/searcher/router.js',CClientScript::POS_END);
+	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/searcher/tableAdd.js',CClientScript::POS_END);
+	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/searcher/dbTable.js',CClientScript::POS_END);
 	?>
 	</head>
 
