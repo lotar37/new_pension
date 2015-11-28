@@ -36,6 +36,20 @@ $(function() {
     Backbone.history.start();// Запускаем HTML5 History push
     controller.navigate("select", true);
 
+    $("#client_filter_div").load("./search/clientFilters");
+
+
+//    добавление пользовательских запросов
+    $("#add_user_request_button").click(function(event){
+       // console.log(window.App.tblAdd.collection.toJSON());
+       // var str= collechSearchCondition();
+//        if(str.indexOf("&filter_empty=1")>0)alert("\t Фильтр пуст.\n Измените значения параметров.")
+//        else{
+            $("#statement").load("./search/createFilter",window.App.tblAdd.collection.toJSON());
+//            $("#statement" ).toggle( "fast" );
+//        }
+    });
+
 });
 </script>
 
@@ -82,7 +96,14 @@ $(function() {
     </div>
         </td>
     </script>
-
+    <script  type="text/template" >
+        <h3>Создание пользовательского фильтра</h3>
+        Название:<input type="text" size='20' name='filter_name' id='filter_name'><br />
+             Для всех пользователей <input type='checkbox' id='for_all'><br />
+            <table class="user_search"></table>
+            <button  id='create'> Создать</button><button  id='cancel'>Отменить</button>
+        <br /><br />
+    </script>
 
 
 </head>
@@ -91,9 +112,19 @@ $(function() {
 
 <div id="select" class="block">
     <a href="#!/findForm">Далее</a>
-<table>
+    <div class='row type3' id='statement' style='z-index:100;padding-left:10px;' client_filter_change='0'></div>
+    <h6>Клиентские запросы <b id='add_user_request_button'>+</b>
+    </h6>
+    </center>
+    <div id='client_filter_div'>
+        <select style='font-size:14px;color:#555;margin-top:0em;'>
+            <option value="" style='font-size:14px;'></option>
+            <option value="" style='font-size:14px;'>Показать всех</option>
+        </select>
+    </div>
+    <table>
 <tr><td>
-        <ol id="added"  style="background:#bbbbbb">
+         <ol id="added"  style="background:#bbbbbb">
 
         </ol>
     </td></tr>

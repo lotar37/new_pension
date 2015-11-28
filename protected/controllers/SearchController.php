@@ -22,7 +22,7 @@ class SearchController extends Controller
                 'users'=>array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete','getModelAttributes','getModelTypes','request'),
+                'actions'=>array('admin','delete','getModelAttributes','getModelTypes','request','clientFilters','createFilter'),
                 'users'=>array('admin'),
             ),
             array('deny',  // deny all users
@@ -57,6 +57,16 @@ class SearchController extends Controller
         $this->renderPartial('request',array(
 //            'dataProvider'=>$_GET,
         ));
+    }
+    public function actionÑlientFilters()
+    {
+
+        $this->renderPartial('clientFilters');
+    }
+    public function actionCreateFilter()
+    {
+
+        $this->renderPartial('createFilter');
     }
 
 

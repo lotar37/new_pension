@@ -23,6 +23,9 @@ window.App.Models.FieldAdd  = Backbone.Model.extend({
         type:""
     }
 });
+window.App.Collections.TableAdd = Backbone.Collection.extend({
+    model:window.App.Models.FieldAdd,
+});
 window.App.Models.dbTableField  = Backbone.Model.extend({
     default:{
         field:{
@@ -32,9 +35,7 @@ window.App.Models.dbTableField  = Backbone.Model.extend({
         },
     }
 });
-window.App.Collections.TableAdd = Backbone.Collection.extend({
-    model:window.App.Models.FieldAdd,
-});
+
 window.App.Views.dbTable = Backbone.View.extend({
     template: _.template($(".li").html()),
     templateTable: _.template($(".tableView").html()),
@@ -59,13 +60,21 @@ window.App.Views.dbTable = Backbone.View.extend({
         $("#view_" + this.collection.tableName).draggable({ handle: "p" ,  containment: "parent"});
         $("#view_" + this.collection.tableName + " li").on("click",function (){
             //console.log(this);
-            window.App.tblAdd.collection.add({
-                "title":$(this).attr("title"),
-                "type":$(this).attr("type"),
+
+            var coll = window.App.tblAdd.collection.where({
                 "table":$(this).attr("table"),
-                "field":$(this).attr("field")});
-            window.App.temp.newAdd = true;
-            $(this).remove();
+                "field":$(this).attr("field")}
+            );
+            if(coll.length == 0) {
+                window.App.tblAdd.collection.add({
+                    "type": $(this).attr("type"),
+                    "title": $(this).attr("title"),
+                    "table": $(this).attr("table"),
+                    "field": $(this).attr("field")
+                });
+                window.App.temp.newAdd = true;
+            }
+            //$(this).remove();
         });
     }
 });
@@ -103,6 +112,7 @@ window.App.Views.TableAdd = Backbone.View.extend({
     template:_.template($(".li-add").html()),
     initialize:function(){
         this.collection.bind("add", this.fun2, this);
+        this.collection.bind("remove", this.fun2, this);
         //this.render();
     },
     render:function(){
@@ -112,9 +122,19 @@ window.App.Views.TableAdd = Backbone.View.extend({
             console.log(per.attributes);
             this.$el.append(this.template({tableAttr:per.attributes.title, field:per.attributes.field, table:per.attributes.table, type:per.attributes.type}));
         },this);
+        $("#added li").on("click",function(){
+           //    console.log(this);
+            var mod = window.App.tblAdd.collection.where({
+                table:$(this).attr("table"),
+                field:$(this).attr("field")
+            });
+           // console.log(mod);
+            window.App.tblAdd.collection.remove(mod);
+            //$(this).remove()
+        });
     },
     fun2:function(){
-       // console.log(this.collection);
+        //console.log(this.collection);
         this.render();
     },
 });
@@ -144,10 +164,27 @@ window.App.Views.FindForm = Backbone.View.extend({
         $(".inputdate").inputmask("d.m.y");
         $(".inputinteger").inputmask("integer");
         $("input").on("blur",function(){
-            console.log($(this).parent().prev().attr("field"));
-            console.log($(this).val());
-        });
+             var mod = window.App.tblAdd.collection.where({
+                    "table":$(this).parent().prev().attr("table"),
+                    "field":$(this).parent().prev().attr("field")}
+            );
+            var b = mod[0];
+            b.set({value:$(this).val()});
+            window.App.tblAdd.collection.remove(mod,{silent:true});
+            window.App.tblAdd.collection.add(b,{silent:true});
+            console.log(window.App.tblAdd.collection);
+            //if(coll.length == 0) {
+            //    window.App.tblAdd.collection.add({
+            //        "type": $(this).attr("type"),
+            //        "title": $(this).attr("title"),
+            //        "table": $(this).attr("table"),
+            //        "field": $(this).attr("field")
+            //    });
+            //    window.App.temp.newAdd = true;
+            //}
+            //$(this).remove();
 
+        });
     }
 });
 window.App.Views.Result  = Backbone.View.extend({
