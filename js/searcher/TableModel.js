@@ -6,8 +6,8 @@ window.App = {
     Views : {},
     Collections : {},
     Routers : {},
-    temp : {newAdd:false},
     tbl : {},
+    selectFiedls:false,
     findForm:false,
     Result:false,
     tblAdd: {}
@@ -23,15 +23,16 @@ window.App.Models.Table  = Backbone.Model.extend({
         this.tableName = tableName;
         this.url = this.url + "?tableName=" + tableName;
     },
-    initialize:function(){
-
-    }
 });
 
 
 
 
 
+
+window.App.Views.SelectField = Backbone.View.extend({
+
+});
 
 window.App.Views.FindForm = Backbone.View.extend({
     templateB : _.template($(".addedBooleanField").html()),
@@ -86,9 +87,7 @@ window.App.Views.FindForm = Backbone.View.extend({
                 if($(this).hasClass("begin"))b.set({begin: $(this).val()});
                 else if($(this).hasClass("end"))b.set({end: $(this).val()});
                 else b.set({value: $(this).val()});
-               // console.log($(this).parent().prev());
             } else if($(this).hasClass("onscreen")){
-              //  console.log($(this).prop("checked"));
                 var mod = window.App.tblAdd.collection.where({
                         "table": $(this).parent().prev().prev().attr("table"),
                         "field": $(this).parent().prev().prev().attr("field")
@@ -99,7 +98,7 @@ window.App.Views.FindForm = Backbone.View.extend({
             }
             window.App.tblAdd.collection.remove(mod, {silent: true});
             window.App.tblAdd.collection.add(b, {silent: true});
-            console.log(window.App.tblAdd.collection);
+
         });
     }
 });
@@ -111,12 +110,8 @@ window.App.Models.Result  = Backbone.Model.extend({
 window.App.Views.Result  = Backbone.View.extend({
     el:$(".resultTable"),
     template :   _.template($(".person").html()),
-    initialize:function(){
-        //this.render();
-    },
     render:function(){
         var coll = $("#findForm td.data");
-//        var mod = new Backbone.Model.extend();
         var arr = [];
         var tables = [];
         var i = 0;
@@ -146,7 +141,6 @@ window.App.Views.Result  = Backbone.View.extend({
             i++;
         });
         var tableUnion = _.union(tables);
-        console.log(arr);
         $.ajax({
             url: './search/request',
             async: false,
@@ -154,13 +148,13 @@ window.App.Views.Result  = Backbone.View.extend({
             data:{d:arr,tables:tableUnion},
             success: function (datas) {
                 window.App.Result.model = new window.App.Models.Result(datas);
-                window.App.Result.drowReport();
+                window.App.Result.drawReport();
             }
         },this);
 
 
     },
-    drowReport:function(){
+    drawReport:function(){
         this.$el.empty();
         _.each(this.model.attributes, function(obj, key){
             if(key>0)return 0;

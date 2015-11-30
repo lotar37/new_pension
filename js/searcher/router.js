@@ -16,13 +16,8 @@ window.App.Routers.Controller = Backbone.Router.extend({
     },
     findForm: function () {
         $(".block").hide();
-        //if(!window.App.temp.newAdd){
-        //    $("#findForm").show();
-        //    return;
-        //}
         if(window.App.FindForm)window.App.FindForm.render();
         else window.App.FindForm = new window.App.Views.FindForm({model:window.App.tbl});
-        window.App.temp.newAdd = false;
         $("#findForm").show();
     },
     result: function () {

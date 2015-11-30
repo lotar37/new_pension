@@ -18,9 +18,6 @@ window.App.Collections.dbTable = Backbone.Collection.extend({
         this.tableName = tableName;
         this.url = this.url + "?tableName=" + tableName;
     },
-    initialize: function(){
-        // this.url +=  "?tableName=" + this.tableName;
-    },
 });
 window.App.Views.dbTable = Backbone.View.extend({
     template: _.template($(".li").html()),
@@ -30,10 +27,8 @@ window.App.Views.dbTable = Backbone.View.extend({
 
     },
     render:function(){
-        //console.log(this.collection.get("id"));
         $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
         this.$el = $("#view_" + this.collection.tableName + " ol");
-        //console.log(this.collection.models[0].attributes);
         _.each(this.collection.models[0].attributes, function(field,id){
             this.$el.append(this.template({
                 tableAttr: field.title,
@@ -44,7 +39,6 @@ window.App.Views.dbTable = Backbone.View.extend({
         },this);
         $("#view_" + this.collection.tableName).draggable({ handle: "p" ,  containment: "parent"});
         $("#view_" + this.collection.tableName + " li").on("click",function (){
-            //console.log(this);
 
             var coll = window.App.tblAdd.collection.where({
                     "table":$(this).attr("table"),
@@ -59,7 +53,8 @@ window.App.Views.dbTable = Backbone.View.extend({
                         "field": $(this).attr("field"),
                         "begin": "",
                         "end": "",
-                        "visible": true
+                        "visible": true,
+                        "id":window.App.tblAdd.collection.length + 1
                     });
                 }else{
                     window.App.tblAdd.collection.add({
@@ -68,13 +63,12 @@ window.App.Views.dbTable = Backbone.View.extend({
                         "table": $(this).attr("table"),
                         "field": $(this).attr("field"),
                         "value": "",
-                        "visible": true
-                    });
+                        "visible": true,
+                        "id":window.App.tblAdd.collection.length + 1
+            });
 
                 }
-                window.App.temp.newAdd = true;
             }
-            //$(this).remove();
         });
     }
 });

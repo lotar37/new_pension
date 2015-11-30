@@ -8,11 +8,16 @@ window.App.Models.FieldAdd  = Backbone.Model.extend({
         field:"",
         type:"",
         value:"",
-        visible:true
+        visible:true,
+        id:0
     }
 });
 window.App.Collections.TableAdd = Backbone.Collection.extend({
     model:window.App.Models.FieldAdd,
+     comparator : function(model) {
+        return model.get("id");
+    },
+
 });
 window.App.Views.TableAdd = Backbone.View.extend({
     el:$("#added"),
@@ -20,12 +25,10 @@ window.App.Views.TableAdd = Backbone.View.extend({
     initialize:function(){
         this.collection.bind("add", this.fun2, this);
         this.collection.bind("remove", this.fun2, this);
-        //this.render();
     },
     render:function(){
         this.$el.empty();
         this.collection.each(function(per){
-            console.log(per.attributes);
             this.$el.append(
                 this.template({
                     tableAttr:per.attributes.title,
@@ -36,18 +39,16 @@ window.App.Views.TableAdd = Backbone.View.extend({
             );
         },this);
         $("#added li").on("click",function(){
-            //    console.log(this);
             var mod = window.App.tblAdd.collection.where({
                 table:$(this).attr("table"),
                 field:$(this).attr("field")
             });
-            // console.log(mod);
             window.App.tblAdd.collection.remove(mod);
             //$(this).remove()
         });
     },
+
     fun2:function(){
-        //console.log(this.collection);
         this.render();
     },
 });

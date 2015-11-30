@@ -23,7 +23,6 @@ $(function() {
     window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
     var newTable = new window.App.Collections.dbTable();
     newTable.setModel("Persons");
-//    newTable.reset(<%= @c.toJSON %>);
     var c = new window.App.Views.dbTable({collection:newTable});
 
     c.render();
@@ -41,11 +40,11 @@ $(function() {
 
 //    добавление пользовательских запросов
     $("#add_user_request_button").click(function(event){
-       // console.log(window.App.tblAdd.collection.toJSON());
        // var str= collechSearchCondition();
 //        if(str.indexOf("&filter_empty=1")>0)alert("\t Фильтр пуст.\n Измените значения параметров.")
 //        else{
-            $("#statement").load("./search/createFilter",window.App.tblAdd.collection.toJSON());
+        console.log(window.App.tblAdd.collection.toJSON());
+            //$("#statement").load("./search/createFilter",window.App.tblAdd.collection.toJSON());
 //            $("#statement" ).toggle( "fast" );
 //        }
     });
@@ -54,12 +53,17 @@ $(function() {
 </script>
 
 
+    <!--  Шаблоны поля в таблице          -->
     <script  type="text/template" class="li">
         <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= tableAttr %></b></li>
     </script>
+
+    <!--  Шаблоны поля в таблице выбранных полей         -->
     <script  type="text/template" class="li-add">
         <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= table %>.<%= tableAttr %></b></li>
     </script>
+
+    <!--  Шаблоны полей поиска для разных типов данных          -->
     <script  type="text/template" class="addedIntegerField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputinteger"  value="<%= value %>" /> </td>
@@ -87,10 +91,14 @@ $(function() {
             <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
+
+    <!--  устаревший шаблон          -->
     <script  type="text/template" class="person">
         <tr person="<%= id %>"><td class="" >ФИО:<%= second_name %> <%= first_name %> <%= third_name %> <%= birth_date %> </td>
         </tr>
     </script>
+
+    <!--  Шаблон внешнего вида таблицы           -->
     <script  type="text/template" class="tableView">
         <td>
     <div id="view_<%= tableName %>" class="tableView">
@@ -100,11 +108,12 @@ $(function() {
     </div>
         </td>
     </script>
-    <script  type="text/template" >
-        <h3>Создание пользовательского фильтра</h3>
+    <!--  Шаблон создания пользовательского запроса         -->
+    <script  type="text/template" class="user_search">
+        <h3>Создание пользовательского запроса</h3>
         Название:<input type="text" size='20' name='filter_name' id='filter_name'><br />
              Для всех пользователей <input type='checkbox' id='for_all'><br />
-            <table class="user_search"></table>
+            <table class="search_phrase"></table>
             <button  id='create'> Создать</button><button  id='cancel'>Отменить</button>
         <br /><br />
     </script>
