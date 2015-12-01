@@ -7,7 +7,7 @@ window.App = {
     Collections : {},
     Routers : {},
     tbl : {},
-    selectFiedls:false,
+    SelectFiedls:false,
     findForm:false,
     Result:false,
     tblAdd: {}
@@ -25,12 +25,59 @@ window.App.Models.Table  = Backbone.Model.extend({
     },
 });
 
+window.App.Views.SelectFields = Backbone.View.extend({
+    tables : ["Persons","Cases"],
+    templateUR: _.template($(".userRequest").html()),
+    templateERR: _.template($(".userRequestError").html()),
+    templateTR: _.template($(".userRequestTR").html()),
 
+    initialize:function(){
+        window.App.tbl = new window.App.Models.Table();
+        window.App.tbl.setModel("Persons");
+        window.App.tbl.fetch({async: false});
+        var coll = new window.App.Collections.TableAdd();
+        window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
+        for(var i=0;i<this.tables.length;i++){
+            this.addTable(this.tables[i]);
+        }
+    },
+    addTable:function(tableName){
+        var newTable = new window.App.Collections.dbTable();
+        newTable.setModel(tableName);
+        var tableView = new window.App.Views.dbTable({collection:newTable});
+        tableView.render();
+    },
+    removeTable:function(tableName){
 
+    },
+    openUserRequest:function(){
+        if(window.App.tblAdd.collection.length == 0){
+            $(document.body).append(this.templateERR());
+            $(".userRequestDivError .cansel").on("click",function(){
+                console.log(22222222222);
+                $(".userRequestDivError").remove();
+            });
+        }else{
+            $(document.body).append(this.templateUR());
+             window.App.tblAdd.collection.each(function(field) {
+                 console.log(field);
+                 $(".search_phrase").append(this.templateTR(
+                     {
+                         title: field.attributes.title,
+                         table: field.attributes.table,
+                         visible: field.attributes.visible ? "Да" : "Нет",
+                         value: field.attributes.value
 
+                     })
+                 );
+             },this);
+            $(".userRequestDiv .cansel").on("click",function(){
+                console.log(3333333333333);
+                $(".userRequestDiv").remove();
+            });
 
-
-window.App.Views.SelectField = Backbone.View.extend({
+        }
+    }
 
 });
 
@@ -52,7 +99,6 @@ window.App.Views.FindForm = Backbone.View.extend({
                 type: field.attributes.type,
                 table:field.attributes.table,
                 visible:field.attributes.visible ? "checked" : ""
-
             };
 
             switch(field.attributes.type){
@@ -111,10 +157,10 @@ window.App.Views.Result  = Backbone.View.extend({
     el:$(".resultTable"),
     template :   _.template($(".person").html()),
     render:function(){
-        var coll = $("#findForm td.data");
+        //var coll = $("#findForm td.data");
         var arr = [];
         var tables = [];
-        var i = 0;
+        //var i = 0;
         window.App.tblAdd.collection.each(function(field){
             var onscreen = (typeof field.attributes.visible == "undefined") ? true : field.attributes.visible;
             tables.push(field.attributes.table);
@@ -138,7 +184,7 @@ window.App.Views.Result  = Backbone.View.extend({
                     onscreen: onscreen ? 1 : 0
                 });
             }
-            i++;
+            //i++;
         });
         var tableUnion = _.union(tables);
         $.ajax({

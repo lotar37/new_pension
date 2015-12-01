@@ -12,6 +12,7 @@ window.App.Routers.Controller = Backbone.Router.extend({
 
     select: function () {
         $(".block").hide(); // Прячем все блоки
+        if(!window.App.SelectFields)window.App.SelectFields = new window.App.Views.SelectFields();
         $("#select").show(); // Показываем нужный
     },
     findForm: function () {

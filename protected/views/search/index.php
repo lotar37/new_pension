@@ -12,24 +12,12 @@
     #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
     p.head {width:350px; color:white;background:black;padding:4px;text-align:center;display:block;}
     div.tableView{background:#C5FBBD;width:350px;height: 290px;overflow:hidden;}
+    div.userRequestDiv{background:#C5FBBD; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.userRequestDivError{background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
 </style>
 
 <script>
 $(function() {
-    window.App.tbl = new window.App.Models.Table();
-    window.App.tbl.setModel("Persons");
-    window.App.tbl.fetch({async: false});
-    var coll = new window.App.Collections.TableAdd();
-    window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
-    var newTable = new window.App.Collections.dbTable();
-    newTable.setModel("Persons");
-    var c = new window.App.Views.dbTable({collection:newTable});
-
-    c.render();
-    var newTableCases = new window.App.Collections.dbTable();
-    newTableCases.setModel("Cases");
-    var cCases = new window.App.Views.dbTable({collection:newTableCases});
-    cCases.render();
     var controller = new window.App.Routers.Controller(); // Создаём контроллер
 
     Backbone.history.start();// Запускаем HTML5 History push
@@ -43,7 +31,8 @@ $(function() {
        // var str= collechSearchCondition();
 //        if(str.indexOf("&filter_empty=1")>0)alert("\t Фильтр пуст.\n Измените значения параметров.")
 //        else{
-        console.log(window.App.tblAdd.collection.toJSON());
+        window.App.SelectFields.openUserRequest();
+        //console.log(window.App.tblAdd.collection.toJSON());
             //$("#statement").load("./search/createFilter",window.App.tblAdd.collection.toJSON());
 //            $("#statement" ).toggle( "fast" );
 //        }
@@ -109,15 +98,39 @@ $(function() {
         </td>
     </script>
     <!--  Шаблон создания пользовательского запроса         -->
-    <script  type="text/template" class="user_search">
-        <h3>Создание пользовательского запроса</h3>
-        Название:<input type="text" size='20' name='filter_name' id='filter_name'><br />
-             Для всех пользователей <input type='checkbox' id='for_all'><br />
-            <table class="search_phrase"></table>
-            <button  id='create'> Создать</button><button  id='cancel'>Отменить</button>
-        <br /><br />
-    </script>
+    <script  type="text/template" class="userRequest">
+        <div class="userRequestDiv">
+            <h3>Создание пользовательского запроса</h3>
+            Название:<input type="text" size='20' name='filter_name' id='filter_name'><br />
+            Для всех пользователей <input type='checkbox' id='for_all'><br />
+            <table class="search_phrase" style="">
+                <th>Поле</th>
+                <th>Значение</th>
+                <th>Вывод на экран</th>
+            </table>
 
+            <button  class='create'> Создать</button><button  class='cansel'>Отменить</button>
+            <br /><br />
+        </div>
+    </script>
+    <!--  Шаблон создания пользовательского запроса  ERROR       -->
+    <script  type="text/template" class="userRequestError">
+        <div class="userRequestDivError">
+            <h3>Создание пользовательского запроса</h3>
+            <h2>Ошибка!Вы ничего не выбрали!</h2>
+            <button  class='cansel'>Закрыть</button>
+            <br /><br />
+        </div>
+
+    </script>
+    <!--  Шаблон создания строки пользовательского запроса         -->
+    <script  type="text/template" class="userRequestTR">
+        <tr>
+            <td><%= table %>.<%= title %></td>
+            <td><%= value %></td>
+            <td><%= visible %></td>
+        </tr>
+    </script>
 
 </head>
 <body>
