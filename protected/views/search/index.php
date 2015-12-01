@@ -11,9 +11,10 @@
     #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:200px;overflow-y: scroll;}
     #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
     p.head {width:350px; color:white;background:black;padding:4px;text-align:center;display:block;}
-    div.tableView{background:#C5FBBD;width:350px;height: 290px;overflow:hidden;}
-    div.userRequestDiv{padding:4px;background:#208020; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
-    div.userRequestDivError{background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.dbTableView{background:#C5FBBD;width:350px;height: 290px;overflow:hidden;}
+    div.userRequestDiv{padding:10px;background:#208020; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.userRequestDivError{padding:10px;background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    .checkbox_table{font-size:12px}
 </style>
 
 <script>
@@ -68,10 +69,28 @@ $(function() {
             dataType : 'json',
             success: function (data) {
                 window.App.tblAdd.collection.reset(data);
+                    window.App.SelectFields.tableInspect(data);
             }
         });
 
     });
+    $( "#Persons" ).button();
+    $( "#Cases" ).button();
+
+
+    $(".listTables").on("change","input",function(){
+        if($(this).is(":checked")){
+            window.App.SelectFields.tables.push($(this).attr("id"));
+            window.App.SelectFields.addTable($(this).attr("id"));
+        }else{
+            window.App.SelectFields.tables = _.without(window.App.SelectFields.tables,$(this).attr("id"));
+            $("#view_"+$(this).attr("id")).parent().remove();
+        }
+        $("#client_filter [value='0']").prop("selected", "selected");
+
+    });
+
+
 
     $("#client_search_div").load("./search/clientFilters");
 });
@@ -126,7 +145,7 @@ $(function() {
     <!--  Шаблон внешнего вида таблицы           -->
     <script  type="text/template" class="tableView">
         <td>
-    <div id="view_<%= tableName %>" class="tableView">
+    <div id="view_<%= tableName %>" class="dbTableView">
         <p class="head"><%= tableName %></p>
         <ol  class="list"></ol>
 
@@ -178,12 +197,7 @@ $(function() {
     <h6>Клиентские запросы <b id='add_user_request_button'>+</b>
     </h6>
     </center>
-    <div id='client_search_div'>
-        <select style='font-size:14px;color:#555;margin-top:0em;'>
-            <option value="" style='font-size:14px;'></option>
-            <option value="" style='font-size:14px;'>Показать всех</option>
-        </select>
-    </div>
+    <div id='client_search_div'></div>
     <table>
 <tr><td>
          <ol id="added"  style="background:#bbbbbb">
@@ -191,6 +205,11 @@ $(function() {
         </ol>
     </td></tr>
     <tr class="tables">
+        <td class="listTables" style="vertical-align: top;">
+            <div>Доступные таблицы</div>
+            <input type="checkbox" id="Persons"><label for="Persons" class="checkbox_table">Persons</label><br>
+            <input type="checkbox" id="Cases"><label for="Cases" class="checkbox_table">Cases</label>
+        </td>
     </tr>
 </table>
 

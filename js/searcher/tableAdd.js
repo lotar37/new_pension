@@ -25,10 +25,11 @@ window.App.Views.TableAdd = Backbone.View.extend({
     initialize:function(){
         this.collection.bind("add", this.fun2, this);
         this.collection.bind("remove", this.fun2, this);
-        this.collection.bind("reset", this.fun2, this);
+        this.collection.bind("reset", this.render, this);
     },
     render:function(){
         this.$el.empty();
+
         this.collection.each(function(per){
             this.$el.append(
                 this.template({
@@ -51,6 +52,7 @@ window.App.Views.TableAdd = Backbone.View.extend({
 
     fun2:function(){
         this.render();
+        $("#client_filter [value='0']").prop("selected", "selected");
     },
 });
 

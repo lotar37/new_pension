@@ -64,8 +64,7 @@ foreach($Result as $one){
 ?> 
 
  <select id="client_filter" style='font-size:14px;color:#555;margin-top:0em;'>
-    <option value="" style='font-size:14px;'></option>
-    <option value="" style='font-size:14px;'>Показать всех</option>
+    <option value="0" style='font-size:14px;'></option>
 	<?php
 	foreach($a as $k=>$one){
         echo "<option value='$k' style='font-size:14px;'>$one</option>";

@@ -26,7 +26,8 @@ window.App.Models.Table  = Backbone.Model.extend({
 });
 
 window.App.Views.SelectFields = Backbone.View.extend({
-    tables : ["Persons","Cases"],
+    tables : [],
+    //tables : ["Persons","Cases"],
     templateUR: _.template($(".userRequest").html()),
     templateERR: _.template($(".userRequestError").html()),
     templateTR: _.template($(".userRequestTR").html()),
@@ -37,6 +38,9 @@ window.App.Views.SelectFields = Backbone.View.extend({
         window.App.tbl.fetch({async: false});
         var coll = new window.App.Collections.TableAdd();
         window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
+        this.render();
+     },
+    render:function(){
         for(var i=0;i<this.tables.length;i++){
             this.addTable(this.tables[i]);
         }
@@ -47,8 +51,34 @@ window.App.Views.SelectFields = Backbone.View.extend({
         var tableView = new window.App.Views.dbTable({collection:newTable});
         tableView.render();
     },
+
     removeTable:function(tableName){
 
+    },
+    tableInspect:function(data){
+        var arr = [];
+        _.each(data,function(obj,i){
+            arr.push(obj.table);
+        });
+
+        arr =  _.uniq(arr);
+        var union = _.union(arr,this.tables);
+        var add = _.difference(union,this.tables);
+        var del = _.difference(union, arr);
+        this.tables = arr;
+        console.log(union);
+        console.log(add);
+        console.log(del);
+        _.each(add, function(obj){
+            this.addTable(obj);
+            ///checkbox нажать
+            $("#"+obj).prop('checked', 'checked');
+        },this);
+        _.each(del, function(obj){
+            $("#view_"+obj).parent().remove();
+            //checkbox отжать
+            $("#"+obj).prop('checked', '');
+        });
     },
     openUserRequest:function(){
         if(window.App.tblAdd.collection.length == 0){
@@ -98,7 +128,6 @@ window.App.Views.FindForm = Backbone.View.extend({
                 table:field.attributes.table,
                 visible:field.attributes.visible ? "checked" : ""
             };
-
             switch(field.attributes.type){
                 case "boolean":
                     dataJ.value = dataJ.value ? "checked" : "";
