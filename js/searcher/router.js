@@ -6,6 +6,7 @@ window.App.Routers.Controller = Backbone.Router.extend({
         "": "select", // Пустой hash-тэг
         "!/": "select", // Пустой hash-тэг
         "!/select": "select", // Выбор полей поиска
+        "select": "select", // Выбор полей поиска
         "!/findForm": "findForm", // Поисковая форма
         "!/result": "result", // Результат поиска
     },

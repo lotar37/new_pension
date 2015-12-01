@@ -12,7 +12,7 @@
     #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
     p.head {width:350px; color:white;background:black;padding:4px;text-align:center;display:block;}
     div.tableView{background:#C5FBBD;width:350px;height: 290px;overflow:hidden;}
-    div.userRequestDiv{background:#C5FBBD; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.userRequestDiv{padding:4px;background:#208020; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
     div.userRequestDivError{background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
 </style>
 
@@ -21,23 +21,59 @@ $(function() {
     var controller = new window.App.Routers.Controller(); // Создаём контроллер
 
     Backbone.history.start();// Запускаем HTML5 History push
-    controller.navigate("select", true);
+    controller.navigate("!/select", true);
 
-    $("#client_filter_div").load("./search/clientFilters");
 
 
 //    добавление пользовательских запросов
     $("#add_user_request_button").click(function(event){
-       // var str= collechSearchCondition();
-//        if(str.indexOf("&filter_empty=1")>0)alert("\t Фильтр пуст.\n Измените значения параметров.")
-//        else{
-        window.App.SelectFields.openUserRequest();
-        //console.log(window.App.tblAdd.collection.toJSON());
-            //$("#statement").load("./search/createFilter",window.App.tblAdd.collection.toJSON());
-//            $("#statement" ).toggle( "fast" );
-//        }
+         window.App.SelectFields.openUserRequest();
+    });
+    $(document).on("click",".create",function(){
+        if($("#filter_name").val() == ""){alert("Пустое поле имени фильтра.");$("#filter_name").focus()}
+        else{
+            $.ajax({
+                url : './search/saveFilter',
+                async : true,
+                type : 'GET',
+                data : {
+                    filter:window.App.tblAdd.collection.toJSON(),
+                    filter_name:$("#filter_name").val(),
+                    prefix:$("#for_all").is(":checked") ? 'global' : '',
+                },
+                processData : true,
+                contentType : 'application/x-www-form-urlencoded',
+                dataType : 'json',
+                success: function (data, textStatus) {
+                    if(data == 1){
+                        $("#client_search_div").load("./search/clientFilters");
+                        if(confirm("Фильтр успешно сохранен."))$(".userRequestDiv").remove();
+                    }
+                    if(data == 0)
+                        if(confirm("Такой фильтр уже существует."))$(".userRequestDiv").remove();
+                }
+            });
+        }
+    });
+    $(document).on("change","#client_filter",function(){
+        $.ajax({
+            url : './search/getFilter',
+            async : true,
+            type : 'GET',
+            data : {
+                filter_name:$("#client_filter option:selected").text() ,
+            },
+            processData : true,
+            contentType : 'application/x-www-form-urlencoded',
+            dataType : 'json',
+            success: function (data) {
+                window.App.tblAdd.collection.reset(data);
+            }
+        });
+
     });
 
+    $("#client_search_div").load("./search/clientFilters");
 });
 </script>
 
@@ -142,7 +178,7 @@ $(function() {
     <h6>Клиентские запросы <b id='add_user_request_button'>+</b>
     </h6>
     </center>
-    <div id='client_filter_div'>
+    <div id='client_search_div'>
         <select style='font-size:14px;color:#555;margin-top:0em;'>
             <option value="" style='font-size:14px;'></option>
             <option value="" style='font-size:14px;'>Показать всех</option>

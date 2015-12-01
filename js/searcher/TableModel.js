@@ -54,7 +54,6 @@ window.App.Views.SelectFields = Backbone.View.extend({
         if(window.App.tblAdd.collection.length == 0){
             $(document.body).append(this.templateERR());
             $(".userRequestDivError .cansel").on("click",function(){
-                console.log(22222222222);
                 $(".userRequestDivError").remove();
             });
         }else{
@@ -71,8 +70,7 @@ window.App.Views.SelectFields = Backbone.View.extend({
                      })
                  );
              },this);
-            $(".userRequestDiv .cansel").on("click",function(){
-                console.log(3333333333333);
+            $(".userRequestDiv").on("click",".cansel",function(){
                 $(".userRequestDiv").remove();
             });
 

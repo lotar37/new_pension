@@ -22,7 +22,7 @@ class SearchController extends Controller
                 'users'=>array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete','getModelAttributes','getModelTypes','request','clientFilters','createFilter'),
+                'actions'=>array('admin','delete','getModelAttributes','getModelTypes','request','clientFilters','createFilter','saveFilter','getFilter'),
                 'users'=>array('admin'),
             ),
             array('deny',  // deny all users
@@ -58,7 +58,7 @@ class SearchController extends Controller
 //            'dataProvider'=>$_GET,
         ));
     }
-    public function actionÑlientFilters()
+    public function actionClientFilters()
     {
 
         $this->renderPartial('clientFilters');
@@ -68,6 +68,38 @@ class SearchController extends Controller
 
         $this->renderPartial('createFilter');
     }
+    public function actionSaveFilter(){
+        $filter = json_encode($_GET["filter"]);
+        $sql = "SELECT  COUNT(*) FROM configs  WHERE  (name ILIKE 'search|".Yii::app()->user->name."%' OR name ILIKE 'search|global%') AND value='".$filter."';";
+        $Result = $this->dbRequest($sql);
+        $count = 0;
+        foreach($Result as $one){
+            $count = $one["count"];
+        }
+        if($count>0){
+            echo 0;
+        }
+        else{
+            $prefix = $_GET["prefix"] ?  "global" : Yii::app()->user->name;
+            $sql = "INSERT INTO configs (name,value) VALUES ('search|".$prefix."|".$_GET["filter_name"]."','".$filter."')";
+            $Result = $this->dbRequest($sql);
+            echo 1;
 
+        }
+    }
+   public function actionGetFilter(){
+        $sql = "SELECT  * FROM configs  WHERE  (name ILIKE 'search|".Yii::app()->user->name."|".$_GET["filter_name"]."%' OR name ILIKE 'search|global|".$_GET["filter_name"]."%');";
+        $Result = $this->dbRequest($sql);
+        $count = 0;
+        foreach($Result as $one){
+            echo $one["value"];
+        }
+   }
+
+    private function dbRequest($sql){
+        $connection=Yii::app()->db;
+        $command=$connection->createCommand($sql);
+        return $command->query();
+    }
 
 }

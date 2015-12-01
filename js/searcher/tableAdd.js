@@ -25,6 +25,7 @@ window.App.Views.TableAdd = Backbone.View.extend({
     initialize:function(){
         this.collection.bind("add", this.fun2, this);
         this.collection.bind("remove", this.fun2, this);
+        this.collection.bind("reset", this.fun2, this);
     },
     render:function(){
         this.$el.empty();

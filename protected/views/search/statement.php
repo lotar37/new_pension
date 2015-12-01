@@ -112,7 +112,7 @@ $("#create").click(function(){
 	if($("#filter_name").val() == ""){alert("Пустое поле имени фильтра.");$("#filter_name").focus()}
     else{
 		$.ajax({
-		url : './saveFilter',
+		url : './search/saveFilter',
 		async : true,
 		type : 'GET',
 		data : {
@@ -125,7 +125,7 @@ $("#create").click(function(){
 		dataType : 'json',
         success: function (data, textStatus) { 
 		    if(data == 1){
-				$("#client_filter_div").load("./clientFilters");
+				$("#client_filter_div").load("./search/clientFilters");
 				if(confirm("Фильтр успешно сохранен."))$("#statement").hide();
 			}    
 		    if(data == 0)

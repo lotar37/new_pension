@@ -65,9 +65,10 @@ window.App.Views.dbTable = Backbone.View.extend({
                         "value": "",
                         "visible": true,
                         "id":window.App.tblAdd.collection.length + 1
-            });
-
+                    });
                 }
+            }else{
+               // window.App.tblAdd.collection.remove(coll);
             }
         });
     }
