@@ -27,7 +27,8 @@ window.App.Models.Table  = Backbone.Model.extend({
 
 window.App.Views.SelectFields = Backbone.View.extend({
     tables : [],
-    //tables : ["Persons","Cases"],
+    permitingTables : ["Persons","Cases","Ranks"],
+    templatePT: _.template($(".permitingTable").html()),
     templateUR: _.template($(".userRequest").html()),
     templateERR: _.template($(".userRequestError").html()),
     templateTR: _.template($(".userRequestTR").html()),
@@ -39,6 +40,10 @@ window.App.Views.SelectFields = Backbone.View.extend({
         var coll = new window.App.Collections.TableAdd();
         window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
         this.render();
+        _.each(this.permitingTables, function(table){
+            $(".listTables").append(this.templatePT({tableName:table}));
+            $( "#"+table ).button();
+        },this);
      },
     render:function(){
         for(var i=0;i<this.tables.length;i++){
@@ -63,12 +68,11 @@ window.App.Views.SelectFields = Backbone.View.extend({
 
         arr =  _.uniq(arr);
         var union = _.union(arr,this.tables);
+        //следует добавить
         var add = _.difference(union,this.tables);
+        //следует удалить
         var del = _.difference(union, arr);
         this.tables = arr;
-        console.log(union);
-        console.log(add);
-        console.log(del);
         _.each(add, function(obj){
             this.addTable(obj);
             ///checkbox нажать
@@ -229,6 +233,10 @@ window.App.Views.Result  = Backbone.View.extend({
     },
     drawReport:function(){
         this.$el.empty();
+        window.App.tblAdd.collection.each(function(field) {
+            if(field.attributes.visible)this.$el.append("<th>"+ field.attributes.title +"</th>");
+
+        },this);
         _.each(this.model.attributes, function(obj, key){
             if(key>0)return 0;
             var keys = _.keys(obj);
@@ -244,7 +252,7 @@ window.App.Views.Result  = Backbone.View.extend({
 
         _.each(this.model.attributes, function(obj, key){
 
-            var body = "<tr>";
+            var body = "<tr class='actform'>";
             var arr = _.values(obj);
             for(var i=0;i<arr.length;i++){
                 body += "<td>" + arr[i] + "</td>";

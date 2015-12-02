@@ -52,7 +52,6 @@ window.App.Views.TableAdd = Backbone.View.extend({
 
     fun2:function(){
         this.render();
-        $("#client_filter [value='0']").prop("selected", "selected");
     },
 });
 

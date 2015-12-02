@@ -50,7 +50,16 @@ class Ranks extends CActiveRecord
 			'persons' => array(self::HAS_MANY, 'Persons', 'rank'),
 		);
 	}
+	public function attributeTypes()
+	{
+		return array(
+		'id' => 'ID',
+		'name' => 'string',
+			'rubr' => 'string',
+			'full_name' => 'string',
+			'print_name' => 'string');
 
+	}
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

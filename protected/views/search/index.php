@@ -1,20 +1,26 @@
 <head>
+<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/search_form.css');
+?>
+
+
+
     <style>
     a{color:white}
-    #feedback { font-size: 1.4em; }
+    #feedback { font-size: 12px; }
     #selectable .ui-selecting { background: #FECA40;  }
     #selectable .ui-selected { background: #F39814; color: white; }
-    .list { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:350px;height:200px;overflow-y: scroll;}
-    .list li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
+    .list { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block; width:200px;height:130px;overflow-y: scroll;}
+    .list li { margin: 3px; padding: 0.4em; font-size: 12px; height: 18px; }
     #added .ui-selecting { background: #FECA40; }
     #added .ui-selected { background: #F39814; color: white; }
     #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:200px;overflow-y: scroll;}
-    #added li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
-    p.head {width:350px; color:white;background:black;padding:4px;text-align:center;display:block;}
-    div.dbTableView{background:#C5FBBD;width:350px;height: 290px;overflow:hidden;}
+    #added li { margin: 3px; padding: 0.4em; font-size: 16px; height: 18px; }
+    p.head {width:200px; color:white;background:black;padding:4px;text-align:center;display:block;}
+    div.dbTableView{background:#C5FBBD;width:200px;height: 200px;overflow:hidden;}
     div.userRequestDiv{padding:10px;background:#208020; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
     div.userRequestDivError{padding:10px;background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
     .checkbox_table{font-size:12px}
+    .visible_check{text-align:center;}
 </style>
 
 <script>
@@ -62,7 +68,7 @@ $(function() {
             async : true,
             type : 'GET',
             data : {
-                filter_name:$("#client_filter option:selected").text() ,
+                filter_name:$("#client_filter option:selected").text(),
             },
             processData : true,
             contentType : 'application/x-www-form-urlencoded',
@@ -74,18 +80,18 @@ $(function() {
         });
 
     });
-    $( "#Persons" ).button();
-    $( "#Cases" ).button();
 
 
     $(".listTables").on("change","input",function(){
-        if($(this).is(":checked")){
+        //выход, если оботаблица уже есть
+        if($("#view_"+$(this).attr("id")).length==0){
             window.App.SelectFields.tables.push($(this).attr("id"));
             window.App.SelectFields.addTable($(this).attr("id"));
         }else{
             window.App.SelectFields.tables = _.without(window.App.SelectFields.tables,$(this).attr("id"));
             $("#view_"+$(this).attr("id")).parent().remove();
         }
+        //сброс селектора клиентского запроса
         $("#client_filter [value='0']").prop("selected", "selected");
 
     });
@@ -111,19 +117,19 @@ $(function() {
     <script  type="text/template" class="addedIntegerField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputinteger"  value="<%= value %>" /> </td>
-            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
     <script  type="text/template" class="addedStringField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputstring"  value="<%= value %>" /> </td>
-            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"  /></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"  /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="checkbox" checked="<%= value %>"/> </td>
-            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
     <script  type="text/template" class="addedDateField">
@@ -132,7 +138,7 @@ $(function() {
                 от:<input type="text" class="inputdate begin"  value="<%=begin%>" />
                 до:<input type="text"  class="inputdate end"  value="<%=end%>" />
             </td>
-            <td><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
         </tr>
     </script>
 
@@ -186,7 +192,9 @@ $(function() {
             <td><%= visible %></td>
         </tr>
     </script>
-
+    <script  type="text/template" class="permitingTable">
+        <input type="checkbox" id="<%= tableName %>"><label for="<%= tableName %>" class="checkbox_table"><%= tableName %></label><br>
+    </script>
 </head>
 <body>
 <h1>Построитель запросов</h1>
@@ -199,21 +207,19 @@ $(function() {
     </center>
     <div id='client_search_div'></div>
     <table>
-<tr><td>
-         <ol id="added"  style="background:#bbbbbb">
-
-        </ol>
-    </td></tr>
-    <tr class="tables">
-        <td class="listTables" style="vertical-align: top;">
-            <div>Доступные таблицы</div>
-            <input type="checkbox" id="Persons"><label for="Persons" class="checkbox_table">Persons</label><br>
-            <input type="checkbox" id="Cases"><label for="Cases" class="checkbox_table">Cases</label>
-        </td>
-    </tr>
-</table>
+        <tr><td>
+            <ol id="added"  style="background:#bbbbbb"></ol>
+        </td></tr>
+    </table>
+    <table style="width:10%">
+        <tr class="tables">
+            <td class="listTables" style="vertical-align:top;background:#bce8f1;text-align:center;"><p style="width:200px;" class="head">Доступные таблицы</p></td>
+        </tr>
+    </table>
 
 </div>
+
+
 <div id="findForm" class="block">
     <h3> Выбраны поля</h3>
     <table class="addedFields"></table>
@@ -224,7 +230,7 @@ $(function() {
 <div id="result" class="block">
     <h3>Результат поиска</h3>
     <a href="#!/findForm">Назад</a>
-    <table class="resultTable"></table>
+    <table class="resultTable search_form"></table>
 
 </div>
 

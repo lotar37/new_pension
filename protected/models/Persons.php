@@ -117,7 +117,7 @@ class Persons extends CActiveRecord
 
 			);
 	}
-	public function attributeTypes(){
+		public function attributeTypes(){
 		return array(
 		'id' => 'integer',
 		'second_name' => 'string',
