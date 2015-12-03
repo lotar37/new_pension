@@ -221,7 +221,13 @@ $(function() {
 
 
 <div id="findForm" class="block">
-    <h3> Выбраны поля</h3>
+    <h2 style="color:#fbde4a">Выбраны поля &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select>
+        <option value='' style='font-size:14px;'>Вывод на экран</option>
+        <option value='' style='font-size:14px;'>Вывод в Excel</option>
+        <option value='' style='font-size:14px;'>Вывод в отдельной вкладке</option>
+
+    </select></h2>
     <table class="addedFields"></table>
     <a href="#!/">Назад</a>
     <a href="#!/result">Искать!</a>

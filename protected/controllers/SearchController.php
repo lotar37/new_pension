@@ -53,10 +53,7 @@ class SearchController extends Controller
     }
     public function actionRequest()
     {
-
-        $this->renderPartial('request',array(
-//            'dataProvider'=>$_GET,
-        ));
+        $this->renderPartial('request');
     }
     public function actionClientFilters()
     {

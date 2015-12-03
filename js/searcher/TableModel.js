@@ -192,6 +192,7 @@ window.App.Views.Result  = Backbone.View.extend({
         var arr = [];
         var tables = [];
         //var i = 0;
+        //подготовка запроса
         window.App.tblAdd.collection.each(function(field){
             var onscreen = (typeof field.attributes.visible == "undefined") ? true : field.attributes.visible;
             tables.push(field.attributes.table);
@@ -218,17 +219,29 @@ window.App.Views.Result  = Backbone.View.extend({
             //i++;
         });
         var tableUnion = _.union(tables);
-        $.ajax({
-            url: './search/request',
-            async: false,
-            dataType: 'json',
-            data:{d:arr,tables:tableUnion},
-            success: function (datas) {
-                window.App.Result.model = new window.App.Models.Result(datas);
-                window.App.Result.drawReport();
-            }
-        },this);
+        switch ($("#findForm select option:selected").text()) {
+            case "Вывод на экран":
+                //запрос
+                $.ajax({
+                    url: './search/request',
+                    async: false,
+                    dataType: 'json',
+                    data: {d: arr, tables: tableUnion,type: ""},
+                    success: function (datas) {
+                        window.App.Result.model = new window.App.Models.Result(datas);
+                        //вывод результатов
+                        window.App.Result.drawReport();
+                    }
+                }, this);
+                break;
+            case "Вывод в Excel":
+                window.open("./search/request?"+$.param({d: arr, tables: tableUnion, type:"excel"}),"_blank");
+                break;
+            case "Вывод в отдельной вкладке":
+                window.open("./search/request?"+$.param({d: arr, tables: tableUnion, type:"blank"}),"_blank");
+                break;
 
+       }
 
     },
     drawReport:function(){
@@ -236,18 +249,6 @@ window.App.Views.Result  = Backbone.View.extend({
         window.App.tblAdd.collection.each(function(field) {
             if(field.attributes.visible)this.$el.append("<th>"+ field.attributes.title +"</th>");
 
-        },this);
-        _.each(this.model.attributes, function(obj, key){
-            if(key>0)return 0;
-            var keys = _.keys(obj);
-            var head = "";
-            for(var i=0;i<keys.length;i++){
-                var a_attr = _.values(_.pick(window.App.tbl.attributes,keys[i]));
-                if(a_attr[0]== undefined)continue;
-                if(a_attr[0].attr== undefined)continue;
-                head += "<th>" + a_attr[0].attr + "</th>";
-            }
-            this.$el.append(head);
         },this);
 
         _.each(this.model.attributes, function(obj, key){
