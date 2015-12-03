@@ -110,7 +110,7 @@ $(function() {
 
     <!--  Шаблоны поля в таблице выбранных полей         -->
     <script  type="text/template" class="li-add">
-        <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= table %>.<%= tableAttr %></b></li>
+        <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= titleTable %>.<%= tableAttr %></b></li>
     </script>
 
     <!--  Шаблоны полей поиска для разных типов данных          -->

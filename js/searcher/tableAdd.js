@@ -35,7 +35,8 @@ window.App.Views.TableAdd = Backbone.View.extend({
                 this.template({
                     tableAttr:per.attributes.title,
                     field:per.attributes.field,
-                    table:window.App.SelectFields.permitingTables[per.attributes.table],
+                    titleTable:window.App.SelectFields.permitingTables[per.attributes.table],
+                    table:per.attributes.table,
                     type:per.attributes.type
                 })
             );

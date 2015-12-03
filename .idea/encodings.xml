@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/js/searcher/dbTable.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/js/searcher/router.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/js/searcher/tableAdd.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protected/controllers/SearchController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/protected/views/search/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protected/views/search/request.php" charset="UTF-8" />
   </component>
 </project>
