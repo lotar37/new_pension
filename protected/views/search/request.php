@@ -6,14 +6,44 @@
  * Time: 1:50
  */
 //var_dump($_GET);
+
 function dbRequest($sql){
     $connection=Yii::app()->db;
     $command=$connection->createCommand($sql);
     return $command->query();
 }
 $conditions = "";
+$arr_rel = array(
+    "PersonsCases"=>array("Persons","Cases"),
+    "PersonsRanks"=>array("Persons","Ranks"),
+    "CasesRanks"=>array("Cases","Ranks"),
+    "PersonsCasesRanks"=>array("Persons","Cases","Ranks"),
+);
+//var_dump($_GET["tables"]);
+function getKey($tables,$arr_rel){
+    foreach($arr_rel as $k=>$v){
+         if(!count(array_diff($v,$tables)) && !count(array_diff($tables,$v)))return $k;
+    }
+}
+//echo getKey($_GET["tables"],$arr_rel);die();
 if(count($_GET["tables"])==1) $from = "public.".$_GET["tables"][0];
-else $from = " cases INNER JOIN persons ON cases.person = persons.id ";
+else{
+    switch(getKey($_GET["tables"],$arr_rel)){
+        case "PersonsCases": $from = " cases INNER JOIN persons ON cases.person = persons.id ";
+            break;
+        case  "CasesRanks":
+        case  "PersonsCasesRanks":
+        $from = " persons LEFT JOIN ranks ON ranks.id = persons.rank INNER JOIN cases ON cases.person = persons.id ";
+
+        break;
+        case "PersonsRanks":
+            $from = " ranks INNER JOIN persons ON ranks.id = persons.rank ";
+            break;
+    }
+}
+
+
+
 
 $fields = "";
 $emptyallval = true;
