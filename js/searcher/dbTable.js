@@ -27,7 +27,14 @@ window.App.Views.dbTable = Backbone.View.extend({
 
     },
     render:function(){
-        $(".tables").append(this.templateTable({tableName:this.collection.tableName}));
+        console.log(window.App.SelectFields.permitingTables[this.collection.tableName]);
+        $(".tables").append(this.templateTable(
+            {
+                tableName:this.collection.tableName,
+                title:window.App.SelectFields.permitingTables[this.collection.tableName],
+
+            }
+        ));
         this.$el = $("#view_" + this.collection.tableName + " ol");
         _.each(this.collection.models[0].attributes, function(field,id){
             this.$el.append(this.template({

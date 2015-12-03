@@ -27,7 +27,7 @@ window.App.Models.Table  = Backbone.Model.extend({
 
 window.App.Views.SelectFields = Backbone.View.extend({
     tables : [],
-    permitingTables : ["Persons","Cases","Ranks"],
+    permitingTables : {"Persons":"Пенсионеры","Cases":"Пенсионные дела","Ranks":"Звания"},
     templatePT: _.template($(".permitingTable").html()),
     templateUR: _.template($(".userRequest").html()),
     templateERR: _.template($(".userRequestError").html()),
@@ -40,8 +40,8 @@ window.App.Views.SelectFields = Backbone.View.extend({
         var coll = new window.App.Collections.TableAdd();
         window.App.tblAdd = new window.App.Views.TableAdd({collection:coll});
         this.render();
-        _.each(this.permitingTables, function(table){
-            $(".listTables").append(this.templatePT({tableName:table}));
+        _.each(this.permitingTables, function(i,table){
+            $(".listTables").append(this.templatePT({tableName:table, title:i}));
             $( "#"+table ).button();
         },this);
      },

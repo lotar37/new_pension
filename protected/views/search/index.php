@@ -152,7 +152,7 @@ $(function() {
     <script  type="text/template" class="tableView">
         <td>
     <div id="view_<%= tableName %>" class="dbTableView">
-        <p class="head"><%= tableName %></p>
+        <p class="head"><%= title %></p>
         <ol  class="list"></ol>
 
     </div>
@@ -193,7 +193,7 @@ $(function() {
         </tr>
     </script>
     <script  type="text/template" class="permitingTable">
-        <input type="checkbox" id="<%= tableName %>"><label for="<%= tableName %>" class="checkbox_table"><%= tableName %></label><br>
+        <input type="checkbox" id="<%= tableName %>"><label for="<%= tableName %>" class="checkbox_table"><%= title %></label><br>
     </script>
 </head>
 <body>
@@ -202,25 +202,27 @@ $(function() {
 <div id="select" class="block">
     <a href="#!/findForm">Далее</a>
     <div class='row type3' id='statement' style='z-index:100;padding-left:10px;' client_filter_change='0'></div>
-    <h6>Клиентские запросы <b id='add_user_request_button'>+</b>
-    </h6>
+    <h6 style="color:#fbde4a">Клиентские запросы <b id='add_user_request_button' style="color:#ffaa55">+</b>
+        <b id='client_search_div'></b>   </h6>
     </center>
-    <div id='client_search_div'></div>
-    <table>
-        <tr><td>
-            <ol id="added"  style="background:#bbbbbb"></ol>
-        </td></tr>
-    </table>
+<br>
     <table style="width:10%">
         <tr class="tables">
             <td class="listTables" style="vertical-align:top;background:#bce8f1;text-align:center;"><p style="width:200px;" class="head">Доступные таблицы</p></td>
         </tr>
+    </table>
+    <table>
+        <tr><td>
+            <ol id="added"  style="background:#bbbbbb"></ol>
+        </td></tr>
     </table>
 
 </div>
 
 
 <div id="findForm" class="block">
+    <a href="#!/">Назад</a>
+    <a href="#!/result">Искать!</a>
     <h2 style="color:#fbde4a">Выбраны поля &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <select>
         <option value='' style='font-size:14px;'>Вывод на экран</option>
@@ -229,13 +231,11 @@ $(function() {
 
     </select></h2>
     <table class="addedFields"></table>
-    <a href="#!/">Назад</a>
-    <a href="#!/result">Искать!</a>
 
 </div>
 <div id="result" class="block">
-    <h3>Результат поиска</h3>
     <a href="#!/findForm">Назад</a>
+    <h3>Результат поиска</h3>
     <table class="resultTable search_form"></table>
 
 </div>
