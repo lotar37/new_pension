@@ -236,7 +236,7 @@ window.App.Views.Result  = Backbone.View.extend({
                     dataType: 'json',
                     data: {d: arr, tables: tableUnion,type: "",thead:""},
                     success: function (datas) {
-                        window.App.Result.model = new window.App.Models.Result(datas);
+                        window.App.Result.model = new window.App.Models.Result(datas["data"]);
                         //вывод результатов
                         window.App.Result.drawReport();
                     }

@@ -76,6 +76,8 @@ $Result_count = dbRequest($count_sql);
 //var_dump($Result2->readAll());
 $data = $Result->readAll();
 $data_count = $Result_count->readAll();
+$_data = str_replace("null",'" - "',json_encode($data));
+$out = array("data"=>$_data,"count"=>$data_count[0]["count"]);
 //"count"=>$Result2->readAll();
 $csv_output ='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
