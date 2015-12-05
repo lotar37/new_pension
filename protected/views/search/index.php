@@ -117,19 +117,19 @@ $(function() {
     <script  type="text/template" class="addedIntegerField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputinteger"  value="<%= value %>" /> </td>
-            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>" /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedStringField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputstring"  value="<%= value %>" /> </td>
-            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"  /></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>"  /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
         <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="checkbox" checked="<%= value %>"/> </td>
-            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>" /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedDateField">
@@ -138,7 +138,7 @@ $(function() {
                 от:<input type="text" class="inputdate begin"  value="<%=begin%>" />
                 до:<input type="text"  class="inputdate end"  value="<%=end%>" />
             </td>
-            <td class="visible_check"><input class="onscreen" type="checkbox" checked="<%= visible %>"></td>
+            <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>" /></td>
         </tr>
     </script>
 
@@ -198,7 +198,6 @@ $(function() {
 </head>
 <body>
 <h1>Построитель запросов</h1>
-
 <div id="select" class="block">
     <a href="#!/findForm">Далее</a>
     <div class='row type3' id='statement' style='z-index:100;padding-left:10px;' client_filter_change='0'></div>

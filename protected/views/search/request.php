@@ -69,12 +69,13 @@ foreach($_GET["d"] as $k=>$one){
 }
 if($emptyallval) $conditions = "true";
 $sql = "SELECT DISTINCT ".$fields." FROM ".$from." WHERE ".$conditions." LIMIT 100 OFFSET 1";
-
+$count_sql = "SELECT DISTINCT COUNT(*) FROM ".$from." WHERE ".$conditions;
 //echo $sql;
 $Result = dbRequest($sql);
-//$Result2 = dbRequest($sql2);
+$Result_count = dbRequest($count_sql);
 //var_dump($Result2->readAll());
 $data = $Result->readAll();
+$data_count = $Result_count->readAll();
 //"count"=>$Result2->readAll();
 $csv_output ='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -84,6 +85,8 @@ $csv_output ='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "ht
 </head>
 <body>';
     $csv_output .= "<table border='1'>";
+    $csv_output .= $_GET["thead"];
+
     foreach($data as $one){
         $csv_output .=  "<tr>";
         foreach($one as $field){

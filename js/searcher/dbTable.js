@@ -32,7 +32,6 @@ window.App.Views.dbTable = Backbone.View.extend({
             {
                 tableName:this.collection.tableName,
                 title:window.App.SelectFields.permitingTables[this.collection.tableName],
-
             }
         ));
         this.$el = $("#view_" + this.collection.tableName + " ol");
@@ -61,7 +60,7 @@ window.App.Views.dbTable = Backbone.View.extend({
                         "begin": "",
                         "end": "",
                         "visible": true,
-                        "id":window.App.tblAdd.collection.length + 1
+                        "id":window.App.tblAdd.collection.length + 1,
                     });
                 }else{
                     window.App.tblAdd.collection.add({
@@ -71,7 +70,7 @@ window.App.Views.dbTable = Backbone.View.extend({
                         "field": $(this).attr("field"),
                         "value": "",
                         "visible": true,
-                        "id":window.App.tblAdd.collection.length + 1
+                        "id":window.App.tblAdd.collection.length + 1,
                     });
                 }
             }else{

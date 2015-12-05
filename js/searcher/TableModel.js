@@ -171,10 +171,12 @@ window.App.Views.FindForm = Backbone.View.extend({
                     }
                 );
                 var b = mod[0];
+                console.log("change checkbox:" + $(this).prop("checked"));
                 b.set({visible: $(this).prop("checked")});
             }
             window.App.tblAdd.collection.remove(mod, {silent: true});
             window.App.tblAdd.collection.add(b, {silent: true});
+            console.log(b);
 
         });
     }
@@ -219,6 +221,12 @@ window.App.Views.Result  = Backbone.View.extend({
             //i++;
         });
         var tableUnion = _.union(tables);
+        var head = "";
+        window.App.tblAdd.collection.each(function(field) {
+            if(field.attributes.visible)head += "<th>"+ field.attributes.title +"</th>";
+
+        },this);
+
         switch ($("#findForm select option:selected").text()) {
             case "Вывод на экран":
                 //запрос
@@ -226,7 +234,7 @@ window.App.Views.Result  = Backbone.View.extend({
                     url: './search/request',
                     async: false,
                     dataType: 'json',
-                    data: {d: arr, tables: tableUnion,type: ""},
+                    data: {d: arr, tables: tableUnion,type: "",thead:""},
                     success: function (datas) {
                         window.App.Result.model = new window.App.Models.Result(datas);
                         //вывод результатов
@@ -235,10 +243,10 @@ window.App.Views.Result  = Backbone.View.extend({
                 }, this);
                 break;
             case "Вывод в Excel":
-                window.open("./search/request?"+$.param({d: arr, tables: tableUnion, type:"excel"}),"_blank");
+                window.open("./search/request?"+$.param({d: arr, tables: tableUnion, type:"excel",thead:head}),"_blank");
                 break;
             case "Вывод в отдельной вкладке":
-                window.open("./search/request?"+$.param({d: arr, tables: tableUnion, type:"blank"}),"_blank");
+                window.open("./search/request?"+$.param({d: arr, tables: tableUnion, type:"blank",thead:head}),"_blank");
                 break;
 
        }
