@@ -98,7 +98,8 @@ $(function() {
 
     });
 
-
+    $( "#added" ).sortable({"update":function(){window.App.tblAdd.updateSort = true}});
+    $( "#added" ).disableSelection();
 
     $("#client_search_div").load("./search/clientFilters");
 });

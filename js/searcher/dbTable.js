@@ -27,7 +27,6 @@ window.App.Views.dbTable = Backbone.View.extend({
 
     },
     render:function(){
-        console.log(window.App.SelectFields.permitingTables[this.collection.tableName]);
         $(".tables").append(this.templateTable(
             {
                 tableName:this.collection.tableName,
@@ -45,11 +44,12 @@ window.App.Views.dbTable = Backbone.View.extend({
         },this);
         $("#view_" + this.collection.tableName).draggable({ handle: "p" ,  containment: "parent"});
         $("#view_" + this.collection.tableName + " li").on("click",function (){
-
             var coll = window.App.tblAdd.collection.where({
                     "table":$(this).attr("table"),
                     "field":$(this).attr("field")}
             );
+            console.log("Такая запись есть:" + coll.length);
+
             if(coll.length == 0) {
                 if($(this).attr("type")=="date") {
                     window.App.tblAdd.collection.add({

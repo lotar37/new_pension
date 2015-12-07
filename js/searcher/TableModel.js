@@ -67,6 +67,7 @@ window.App.Views.SelectFields = Backbone.View.extend({
         });
 
         arr =  _.uniq(arr);
+        //объединение
         var union = _.union(arr,this.tables);
         //следует добавить
         var add = _.difference(union,this.tables);
@@ -236,7 +237,7 @@ window.App.Views.Result  = Backbone.View.extend({
                     url: './search/request',
                     async: false,
                     dataType: 'json',
-                    data: {d: arr, tables: tableUnion,type: "",thead:""},
+                    data: {d: arr, tables: tableUnion,type: "",thead:"",page:""},
                     success: function (datas) {
                         window.App.Result.model = new window.App.Models.Result($.parseJSON(datas.data));
                         window.App.Result.model.set({count:$.parseJSON(datas.count)});

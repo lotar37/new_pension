@@ -22,6 +22,7 @@ window.App.Collections.TableAdd = Backbone.Collection.extend({
 window.App.Views.TableAdd = Backbone.View.extend({
     el:$("#added"),
     template:_.template($(".li-add").html()),
+    updateSort:false,
     initialize:function(){
         this.collection.bind("add", this.fun2, this);
         this.collection.bind("remove", this.fun2, this);
@@ -41,13 +42,34 @@ window.App.Views.TableAdd = Backbone.View.extend({
                 })
             );
         },this);
-        $("#added li").on("click",function(){
+        $("#added li").on("dblclick",function(){
             var mod = window.App.tblAdd.collection.where({
                 table:$(this).attr("table"),
                 field:$(this).attr("field")
             });
             window.App.tblAdd.collection.remove(mod);
+            var i=0;
+            window.App.tblAdd.collection.each(function(field){
+                    i++;
+                    field.set({id:i});
+                }
+            );
             //$(this).remove()
+        });
+    },
+    sort:function(){
+        var i = 0;
+        $("#added li").each(function(){
+            i++;
+            var mod = window.App.tblAdd.collection.where({
+                table:$(this).attr("table"),
+                field:$(this).attr("field")
+            });
+            var b = mod[0];
+            b.set({id:i});
+            window.App.tblAdd.collection.remove(mod,{silent: true});
+            console.log(b);
+            window.App.tblAdd.collection.add(b,{silent: true});
         });
     },
 

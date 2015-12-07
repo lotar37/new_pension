@@ -31,7 +31,7 @@
       <file leaf-file-name="clientFilters.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/clientFilters.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-14.961538">
               <caret line="70" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <marker date="1449005001793" expanded="true" signature="1686:1793" placeholder="SELECT * FRO..configs..." />
@@ -71,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TableModel.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TableModel.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/searcher/TableModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82042253">
-              <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.9310346">
+              <caret line="40" column="25" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="25" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
               </folding>
@@ -101,8 +101,38 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
           <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.153846">
+              <caret line="100" column="76" selection-start-line="100" selection-start-column="48" selection-end-line="100" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dbTable.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/searcher/dbTable.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-38.24138">
+              <caret line="76" column="53" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/searcher/router.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5809859">
+              <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tableAdd.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/searcher/tableAdd.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="200" column="30" selection-start-line="200" selection-start-column="30" selection-end-line="200" selection-end-column="30" />
+              <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -139,7 +169,6 @@
         <option value="$PROJECT_DIR$/protected/views/layouts/main.php" />
         <option value="$PROJECT_DIR$/protected/models/Cases.php" />
         <option value="$PROJECT_DIR$/themes/tus/views/layouts/main.php" />
-        <option value="$PROJECT_DIR$/js/searcher/router.js" />
         <option value="$PROJECT_DIR$/protected/views/search/statement.php" />
         <option value="$PROJECT_DIR$/protected/views/search/clientFilters.php" />
         <option value="$PROJECT_DIR$/protected/views/persons/clientFilters.php" />
@@ -148,15 +177,16 @@
         <option value="$PROJECT_DIR$/protected/models/Persons.php" />
         <option value="$PROJECT_DIR$/css/search_form.css" />
         <option value="$PROJECT_DIR$/protected/controllers/SearchController.php" />
-        <option value="$PROJECT_DIR$/js/searcher/tableAdd.js" />
-        <option value="$PROJECT_DIR$/js/searcher/dbTable.js" />
         <option value="$PROJECT_DIR$/js/searcher/sop" />
         <option value="$PROJECT_DIR$/protected/views/search/getModelAttributes.php" />
         <option value="$PROJECT_DIR$/protected/views/search/getModelTypes.php" />
         <option value="$PROJECT_DIR$/protected/controllers/SiteController.php" />
-        <option value="$PROJECT_DIR$/js/searcher/TableModel.js" />
-        <option value="$PROJECT_DIR$/protected/views/search/index.php" />
         <option value="$PROJECT_DIR$/protected/views/search/request.php" />
+        <option value="$PROJECT_DIR$/js/searcher/dbTable.js" />
+        <option value="$PROJECT_DIR$/js/searcher/TableModel.js" />
+        <option value="$PROJECT_DIR$/js/searcher/tableAdd.js" />
+        <option value="$PROJECT_DIR$/protected/views/search/index.php" />
+        <option value="$PROJECT_DIR$/js/searcher/router.js" />
       </list>
     </option>
   </component>
@@ -1065,31 +1095,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/searcher/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/SearchController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/searcher/tableAdd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/searcher/dbTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="89" selection-start-line="33" selection-start-column="89" selection-end-line="33" selection-end-column="89" />
         </state>
       </provider>
     </entry>
@@ -1118,7 +1127,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/search/clientFilters.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-14.961538">
           <caret line="70" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <marker date="1449005001793" expanded="true" signature="1686:1793" placeholder="SELECT * FRO..configs..." />
@@ -1149,14 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="200" column="30" selection-start-line="200" selection-start-column="30" selection-end-line="200" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/search/statement.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-32.653847">
@@ -1178,13 +1179,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/searcher/dbTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-38.24138">
+          <caret line="76" column="53" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/searcher/tableAdd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/searcher/TableModel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82042253">
-          <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+        <state vertical-scroll-proportion="-6.9310346">
+          <caret line="40" column="25" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="25" />
           <folding>
             <element signature="e#0#43#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.153846">
+          <caret line="100" column="76" selection-start-line="100" selection-start-column="48" selection-end-line="100" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/searcher/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5809859">
+          <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>

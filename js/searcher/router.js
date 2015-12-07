@@ -18,6 +18,10 @@ window.App.Routers.Controller = Backbone.Router.extend({
     },
     findForm: function () {
         $(".block").hide();
+        if(window.App.tblAdd.updateSort){
+            window.App.tblAdd.sort();
+            window.App.tblAdd.updateSort = false;
+        }
         if(window.App.FindForm)window.App.FindForm.render();
         else window.App.FindForm = new window.App.Views.FindForm({model:window.App.tbl});
         $("#findForm").show();
