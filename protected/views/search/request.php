@@ -68,8 +68,10 @@ foreach($_GET["d"] as $k=>$one){
     }
 }
 if($emptyallval) $conditions = "true";
-$sql = "SELECT DISTINCT ".$fields." FROM ".$from." WHERE ".$conditions." LIMIT 100 OFFSET 1";
-$count_sql = "SELECT DISTINCT COUNT(*) FROM ".$from." WHERE ".$conditions;
+if(isset($_GET["page"]))$page = 1;
+else $page = $_GET["page"];
+$sql = "SELECT ".$fields." FROM ".$from." WHERE ".$conditions." LIMIT 100 OFFSET $page";
+$count_sql = "SELECT COUNT(*) FROM ".$from." WHERE ".$conditions;
 //echo $sql;
 $Result = dbRequest($sql);
 $Result_count = dbRequest($count_sql);
@@ -108,5 +110,5 @@ if($_GET["type"] == "blank") {
 
     echo $csv_output;
 }
-else echo str_replace("null",'" - "',json_encode($data));
+else echo str_replace("null",'" - "',json_encode($out));
 //echo json_encode($data);

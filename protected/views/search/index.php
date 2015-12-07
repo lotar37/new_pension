@@ -21,6 +21,8 @@
     div.userRequestDivError{padding:10px;background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
     .checkbox_table{font-size:12px}
     .visible_check{text-align:center;}
+    .pagingDiv td{color:#bce8f1;}
+    .search_head{color:#fbde4a}
 </style>
 
 <script>
@@ -192,6 +194,16 @@ $(function() {
             <td><%= visible %></td>
         </tr>
     </script>
+    <!--  Шаблон создания строки пользовательского запроса         -->
+    <script  type="text/template" class="paging">
+        <table>
+        <tr>
+            <td>Всего найдено:<%= count %></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </table>
+    </script>
     <script  type="text/template" class="permitingTable">
         <input type="checkbox" id="<%= tableName %>"><label for="<%= tableName %>" class="checkbox_table"><%= title %></label><br>
     </script>
@@ -201,10 +213,10 @@ $(function() {
 <div id="select" class="block">
     <a href="#!/findForm">Далее</a>
     <div class='row type3' id='statement' style='z-index:100;padding-left:10px;' client_filter_change='0'></div>
-    <h6 style="color:#fbde4a">Клиентские запросы <b id='add_user_request_button' style="color:#ffaa55">+</b>
+    <h6 style="color:#bce8f1">Клиентские запросы <b id='add_user_request_button' style="color:#ffaa55">+</b>
         <b id='client_search_div'></b>   </h6>
     </center>
-<br>
+<h2 class="search_head">Выбор поисковых полей</h2>
     <table style="width:10%">
         <tr class="tables">
             <td class="listTables" style="vertical-align:top;background:#bce8f1;text-align:center;"><p style="width:200px;" class="head">Доступные таблицы</p></td>
@@ -222,7 +234,7 @@ $(function() {
 <div id="findForm" class="block">
     <a href="#!/">Назад</a>
     <a href="#!/result">Искать!</a>
-    <h2 style="color:#fbde4a">Выбраны поля &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h2 class="search_head">Выбраны поля &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <select>
         <option value='' style='font-size:14px;'>Вывод на экран</option>
         <option value='' style='font-size:14px;'>Вывод в Excel</option>
@@ -234,7 +246,8 @@ $(function() {
 </div>
 <div id="result" class="block">
     <a href="#!/findForm">Назад</a>
-    <h3>Результат поиска</h3>
+    <h2 class="search_head">Результат поиска</h2>
+    <div class="pagingDiv"></div>
     <table class="resultTable search_form"></table>
 
 </div>

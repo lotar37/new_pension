@@ -31,7 +31,7 @@
       <file leaf-file-name="clientFilters.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/clientFilters.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-45.76923">
+            <state vertical-scroll-proportion="0.0">
               <caret line="70" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <marker date="1449005001793" expanded="true" signature="1686:1793" placeholder="SELECT * FRO..configs..." />
@@ -44,7 +44,7 @@
       <file leaf-file-name="getModelAttributes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/getModelAttributes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.5">
+            <state vertical-scroll-proportion="0.0">
               <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
               <folding />
             </state>
@@ -54,7 +54,7 @@
       <file leaf-file-name="getModelTypes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/getModelTypes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.576923">
+            <state vertical-scroll-proportion="0.0">
               <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
               <folding />
             </state>
@@ -64,29 +64,21 @@
       <file leaf-file-name="statement.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/statement.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.153846">
+            <state vertical-scroll-proportion="-32.653847">
               <caret line="85" column="49" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
+      <file leaf-file-name="TableModel.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/searcher/TableModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-113.84615">
-              <caret line="206" column="4" selection-start-line="206" selection-start-column="4" selection-end-line="206" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SiteController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="7" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
-              <folding />
+            <state vertical-scroll-proportion="0.82042253">
+              <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#43#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -94,15 +86,24 @@
       <file leaf-file-name="request.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/search/request.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.923077">
-              <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+            <state vertical-scroll-proportion="-8.730769">
+              <caret line="68" column="1" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
-                <marker date="1449348811230" expanded="true" signature="2575:2621" placeholder="SELECT DISTI..." />
-                <marker date="1449348811230" expanded="true" signature="2575:2634" placeholder="SELECT DISTI..." />
-                <marker date="1449348811230" expanded="true" signature="3170:3302" placeholder="..." />
-                <marker date="1449348811230" expanded="true" signature="3177:3295" placeholder="..." />
+                <marker date="1449494847407" expanded="true" signature="2633:2670" placeholder="SELECT DISTI..." />
+                <marker date="1449494847407" expanded="true" signature="3219:3351" placeholder="..." />
+                <marker date="1449494847407" expanded="true" signature="3226:3344" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="200" column="30" selection-start-line="200" selection-start-column="30" selection-end-line="200" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,13 +150,13 @@
         <option value="$PROJECT_DIR$/protected/controllers/SearchController.php" />
         <option value="$PROJECT_DIR$/js/searcher/tableAdd.js" />
         <option value="$PROJECT_DIR$/js/searcher/dbTable.js" />
-        <option value="$PROJECT_DIR$/protected/views/search/index.php" />
-        <option value="$PROJECT_DIR$/js/searcher/TableModel.js" />
         <option value="$PROJECT_DIR$/js/searcher/sop" />
-        <option value="$PROJECT_DIR$/protected/views/search/request.php" />
         <option value="$PROJECT_DIR$/protected/views/search/getModelAttributes.php" />
         <option value="$PROJECT_DIR$/protected/views/search/getModelTypes.php" />
         <option value="$PROJECT_DIR$/protected/controllers/SiteController.php" />
+        <option value="$PROJECT_DIR$/js/searcher/TableModel.js" />
+        <option value="$PROJECT_DIR$/protected/views/search/index.php" />
+        <option value="$PROJECT_DIR$/protected/views/search/request.php" />
       </list>
     </option>
   </component>
@@ -364,6 +365,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -683,7 +685,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -751,10 +752,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1370" height="728" extended-state="1" />
+    <frame x="-8" y="0" width="1370" height="728" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1557252" sideWeight="0.40849674" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16259542" sideWeight="0.40849674" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -804,6 +805,19 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/protected/views/search/request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <marker date="1449494847407" expanded="true" signature="2633:2670" placeholder="SELECT DISTI..." />
+            <marker date="1449494847407" expanded="true" signature="3219:3351" placeholder="..." />
+            <marker date="1449494847407" expanded="true" signature="3226:3344" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Addrs.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.8846154">
@@ -984,7 +998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.0663083">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -992,7 +1005,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.115385">
           <caret line="17" column="76" selection-start-line="17" selection-start-column="76" selection-end-line="17" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,7 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1827957">
           <caret line="32" column="59" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1036,7 +1047,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.716981">
           <caret line="58" column="36" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,7 +1069,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="59" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1067,11 +1076,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
-          <folding>
-            <marker date="1449169539228" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..configs..." />
-            <marker date="1449169539228" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449169539228" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..configs..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1079,7 +1083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1087,7 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="89" selection-start-line="33" selection-start-column="89" selection-end-line="33" selection-end-column="89" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1095,23 +1097,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-80.38461">
           <caret line="165" column="9" selection-start-line="165" selection-start-column="9" selection-end-line="165" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/searcher/TableModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="231" column="24" selection-start-line="231" selection-start-column="24" selection-end-line="231" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/search/getModelAttributes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.5">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
           <folding />
         </state>
@@ -1119,7 +1110,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/search/getModelTypes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.576923">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding />
         </state>
@@ -1127,7 +1118,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/search/clientFilters.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-45.76923">
+        <state vertical-scroll-proportion="0.0">
           <caret line="70" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <marker date="1449005001793" expanded="true" signature="1686:1793" placeholder="SELECT * FRO..configs..." />
@@ -1136,19 +1127,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-113.84615">
-          <caret line="206" column="4" selection-start-line="206" selection-start-column="4" selection-end-line="206" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/RanksController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.031365313">
           <caret line="9" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1156,31 +1138,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.031365313">
           <caret line="312" column="5" selection-start-line="312" selection-start-column="5" selection-end-line="312" selection-end-column="5" />
-          <folding>
-            <marker date="1445072510598" expanded="true" signature="-1:-1" placeholder="SELECT code,..code..." />
-            <marker date="1445072510598" expanded="true" signature="-1:-1" placeholder="SELECT code,..tr_changes..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/search/request.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.923077">
-          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1449348811230" expanded="true" signature="2575:2621" placeholder="SELECT DISTI..." />
-            <marker date="1449348811230" expanded="true" signature="2575:2634" placeholder="SELECT DISTI..." />
-            <marker date="1449348811230" expanded="true" signature="3170:3302" placeholder="..." />
-            <marker date="1449348811230" expanded="true" signature="3177:3295" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/search/statement.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.153846">
-          <caret line="85" column="49" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -1189,7 +1146,45 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="7" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/search/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="200" column="30" selection-start-line="200" selection-start-column="30" selection-end-line="200" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/search/statement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-32.653847">
+          <caret line="85" column="49" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/search/request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.730769">
+          <caret line="68" column="1" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <marker date="1449494847407" expanded="true" signature="2633:2670" placeholder="SELECT DISTI..." />
+            <marker date="1449494847407" expanded="true" signature="3219:3351" placeholder="..." />
+            <marker date="1449494847407" expanded="true" signature="3226:3344" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/searcher/TableModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82042253">
+          <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

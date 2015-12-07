@@ -182,6 +182,7 @@ window.App.Views.FindForm = Backbone.View.extend({
     }
 });
 window.App.Models.Result  = Backbone.Model.extend({
+    //count:0,
     initialize:function(){
     }
 });
@@ -189,6 +190,7 @@ window.App.Models.Result  = Backbone.Model.extend({
 window.App.Views.Result  = Backbone.View.extend({
     el:$(".resultTable"),
     template :   _.template($(".person").html()),
+    templatePaging: _.template($(".paging").html()),
     render:function(){
         //var coll = $("#findForm td.data");
         var arr = [];
@@ -236,7 +238,8 @@ window.App.Views.Result  = Backbone.View.extend({
                     dataType: 'json',
                     data: {d: arr, tables: tableUnion,type: "",thead:""},
                     success: function (datas) {
-                        window.App.Result.model = new window.App.Models.Result(datas["data"]);
+                        window.App.Result.model = new window.App.Models.Result($.parseJSON(datas.data));
+                        window.App.Result.model.set({count:$.parseJSON(datas.count)});
                         //вывод результатов
                         window.App.Result.drawReport();
                     }
@@ -250,19 +253,23 @@ window.App.Views.Result  = Backbone.View.extend({
                 break;
 
        }
-
     },
     drawReport:function(){
         this.$el.empty();
+        $(".pagingDiv").empty();
+        $(".pagingDiv").append(this.templatePaging({count:this.model.attributes.count}));
+        this.$el.append("<th>N</th>");
         window.App.tblAdd.collection.each(function(field) {
-            if(field.attributes.visible)this.$el.append("<th>"+ field.attributes.title +"</th>");
+            if(field.attributes.visible)this.$el.append("<th>"+ field.attributes.title + "</th>");
 
         },this);
-
+//console.log(this.model);
+        var j = 0;
         _.each(this.model.attributes, function(obj, key){
-
-            var body = "<tr class='actform'>";
+            j++;
+            var body = "<tr class='actform'><td>"+ j + "</td>";
             var arr = _.values(obj);
+            //console.log(obj);
             for(var i=0;i<arr.length;i++){
                 body += "<td>" + arr[i] + "</td>";
             }
