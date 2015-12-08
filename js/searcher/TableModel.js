@@ -125,6 +125,7 @@ window.App.Views.FindForm = Backbone.View.extend({
     render:function(){
         $(".addedFields").empty();
         $(".addedFields").append("<th>Поле</th><th>Поиск</th><th>Выводить на экран</th>");
+        console.log("render findForm arr.length:"+window.App.tblAdd.collection.length);
         window.App.tblAdd.collection.each(function(field){
             var dataJ = {
                 title:field.attributes.title,

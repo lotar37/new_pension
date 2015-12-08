@@ -59,6 +59,7 @@ window.App.Views.TableAdd = Backbone.View.extend({
     },
     sort:function(){
         var i = 0;
+        var coll = new window.App.Collections.TableAdd();
         $("#added li").each(function(){
             i++;
             var mod = window.App.tblAdd.collection.where({
@@ -67,10 +68,10 @@ window.App.Views.TableAdd = Backbone.View.extend({
             });
             var b = mod[0];
             b.set({id:i});
-            window.App.tblAdd.collection.remove(mod,{silent: true});
-            console.log(b);
-            window.App.tblAdd.collection.add(b,{silent: true});
+            coll.add(b,{silent: true});
         });
+        this.collection.reset(coll.models);
+        coll.remove();
     },
 
     fun2:function(){
