@@ -13,12 +13,15 @@
     .list li { margin: 3px; padding: 0.4em; font-size: 12px; height: 18px; }
     #added .ui-selecting { background: #FECA40; }
     #added .ui-selected { background: #F39814; color: white; }
-    #added { list-style-type: none; margin: 0; padding: 0; width: 40%; display:block;width:450px;height:200px;overflow-y: scroll;}
+    #added { list-style-type: none; margin: 0; padding: 0; display:block;width:550px;height:200px;overflow-y: scroll;}
     #added li { margin: 3px; padding: 0.4em; font-size: 16px; height: 18px; }
     p.head {width:200px; color:white;background:black;padding:4px;text-align:center;display:block;}
     div.dbTableView{background:#C5FBBD;width:200px;height: 200px;overflow:hidden;}
-    div.userRequestDiv{padding:10px;background:#208020; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
-    div.userRequestDivError{padding:10px;background:#C55B5D; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.userRequestDiv{padding:10px;background:#208074; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.userRequestDiv td, .data td{background:#60b0a4;}
+    div.userRequestDiv h3{color:white   }
+    div.userRequestDivError{padding:10px;background:#bb0000; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
+    div.userRequestDivError h3{color:white; }
     .checkbox_table{font-size:12px}
     .visible_check{text-align:center;}
     .pagingDiv td{color:#bce8f1;}
@@ -37,6 +40,9 @@ $(function() {
 //    добавление пользовательских запросов
     $("#add_user_request_button").click(function(event){
          window.App.SelectFields.openUserRequest();
+    });
+    $("#del_user_request_button").click(function(){
+
     });
     $(document).on("click",".create",function(){
         if($("#filter_name").val() == ""){alert("Пустое поле имени фильтра.");$("#filter_name").focus()}
@@ -77,15 +83,15 @@ $(function() {
             dataType : 'json',
             success: function (data) {
                 window.App.tblAdd.collection.reset(data);
-                    window.App.SelectFields.tableInspect(data);
+                window.App.SelectFields.tableInspect(data);
             }
         });
 
     });
 
-
+    // работа с кнопками Списка доступных таблиц
     $(".listTables").on("change","input",function(){
-        //выход, если оботаблица уже есть
+        //выход, если таблица уже есть
         if($("#view_"+$(this).attr("id")).length==0){
             window.App.SelectFields.tables.push($(this).attr("id"));
             window.App.SelectFields.addTable($(this).attr("id"));
@@ -101,7 +107,7 @@ $(function() {
     $( "#added" ).sortable({"update":function(){window.App.tblAdd.updateSort = true}});
     $( "#added" ).disableSelection();
 
-    $("#client_search_div").load("./search/clientFilters");
+    $("#client_search_div").load("./search/clientFilters?type=select");
 });
 </script>
 
@@ -118,25 +124,25 @@ $(function() {
 
     <!--  Шаблоны полей поиска для разных типов данных          -->
     <script  type="text/template" class="addedIntegerField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
+        <tr class="data"> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputinteger"  value="<%= value %>" /> </td>
             <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>" /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedStringField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
+        <tr class="data"> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="text" class="inputstring"  value="<%= value %>" /> </td>
             <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>"  /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedBooleanField">
-        <tr> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
+        <tr class="data"> <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %>:</td>
             <td><input type="checkbox" checked="<%= value %>"/> </td>
             <td class="visible_check"><input class="onscreen" type="checkbox" <%= visible %>="<%= visible %>" /></td>
         </tr>
     </script>
     <script  type="text/template" class="addedDateField">
-        <tr>  <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %></td>
+        <tr class="data">  <td class="data" field="<%= field %>"  table="<%= table %>" type="<%= type %>"><%= title %></td>
             <td>
                 от:<input type="text" class="inputdate begin"  value="<%=begin%>" />
                 до:<input type="text"  class="inputdate end"  value="<%=end%>" />
@@ -185,8 +191,12 @@ $(function() {
             <button  class='cansel'>Закрыть</button>
             <br /><br />
         </div>
-
-    </script>
+        <!--  Шаблон удаления пользовательских фильтров       -->
+        <script  type="text/template" class="userFiltersRemove">
+            <h3>Отметьте запросы, которые вы хотели бы удалить</h3>
+            <ol class="userFiltersRemoveList"></ol>
+            <button  class='FiltersRemove'>Удалить</button>
+        </script>
     <!--  Шаблон создания строки пользовательского запроса         -->
     <script  type="text/template" class="userRequestTR">
         <tr>
@@ -214,8 +224,8 @@ $(function() {
 <div id="select" class="block">
     <a href="#!/findForm">Далее</a>
     <div class='row type3' id='statement' style='z-index:100;padding-left:10px;' client_filter_change='0'></div>
-    <h6 style="color:#bce8f1">Клиентские запросы <b id='add_user_request_button' style="color:#ffaa55">+</b>
-        <b id='client_search_div'></b>   </h6>
+    <h6 style="color:#bce8f1">Клиентские запросы <b id='add_user_request_button' style="cursor:pointer;color:#ffaa55">+</b>
+        <b id='client_search_div'></b>  <b id='del_user_request_button' style="cursor:pointer;color:#ffaa55">x</b> </h6>
     </center>
 <h2 class="search_head">Выбор поисковых полей</h2>
     <table style="width:10%">
@@ -223,8 +233,9 @@ $(function() {
             <td class="listTables" style="vertical-align:top;background:#bce8f1;text-align:center;"><p style="width:200px;" class="head">Доступные таблицы</p></td>
         </tr>
     </table>
-    <table>
-        <tr><td>
+    <table style="width:10%">
+        <th>Выбранные поля</th>
+        <tr><td style="text-align:center;">
             <ol id="added"  style="background:#bbbbbb"></ol>
         </td></tr>
     </table>
