@@ -119,7 +119,8 @@ $(function() {
 
     <!--  Шаблоны поля в таблице выбранных полей         -->
     <script  type="text/template" class="li-add">
-        <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>"><b><%= titleTable %>.<%= tableAttr %></b></li>
+        <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>">
+            <b id="del_li" style="cursor:pointer">-</b>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= titleTable %>.<%= tableAttr %></b></li>
     </script>
 
     <!--  Шаблоны полей поиска для разных типов данных          -->
@@ -235,7 +236,7 @@ $(function() {
     </table>
     <table style="width:10%">
         <th>Выбранные поля</th>
-        <tr><td style="text-align:center;">
+        <tr><td style="text-align:;">
             <ol id="added"  style="background:#bbbbbb"></ol>
         </td></tr>
     </table>
