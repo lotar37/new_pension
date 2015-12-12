@@ -56,6 +56,20 @@ window.App.Views.TableAdd = Backbone.View.extend({
             );
             //$(this).remove()
         });
+        $("#added #del_li").on("click",function(){
+            var mod = window.App.tblAdd.collection.where({
+                table:$(this).parent().attr("table"),
+                field:$(this).parent().attr("field")
+            });
+            window.App.tblAdd.collection.remove(mod);
+            var i=0;
+            window.App.tblAdd.collection.each(function(field){
+                    i++;
+                    field.set({id:i});
+                }
+            );
+            //$(this).remove()
+        });
     },
     sort:function(){
         var i = 0;

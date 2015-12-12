@@ -85,30 +85,75 @@ window.App.Views.SelectFields = Backbone.View.extend({
             $("#"+obj).prop('checked', '');
         });
     },
-    openUserRequest:function(){
-        if(window.App.tblAdd.collection.length == 0){
-            $(document.body).append(this.templateERR());
-            $(".userRequestDivError .cansel").on("click",function(){
-                $(".userRequestDivError").remove();
-            });
-        }else{
-            $(document.body).append(this.templateUR());
-             window.App.tblAdd.collection.each(function(field) {
-                 console.log(field);
-                 $(".search_phrase").append(this.templateTR(
-                     {
-                         title: field.attributes.title,
-                         table: field.attributes.table,
-                         visible: field.attributes.visible ? "Да" : "Нет",
-                         value: field.attributes.value
+    callback:function() {
+        setTimeout(function() {
+            $(".userRequestDivError").hide( "pulsate", {}, 500);
+            //$( "#findForm:visible" ).removeAttr( "style" ).fadeOut();
+        }, 3000 );
+        setTimeout(function() {
+             $(".userRequestDivError").remove();
+        }, 5000 );
+    },
+    openUserRequest:function(type){
+        if(type == "create") {
+            if (window.App.tblAdd.collection.length == 0) {
+                $(document.body).append(this.templateERR());
+                $(".userRequestDivError").show( "clip", {}, 100, this.callback);
+                $(".userRequestDivError .cansel").on("click", function () {
+                    $(".userRequestDivError").remove();
+                });
+            } else {
+                $(document.body).append(this.templateUR());
+                window.App.tblAdd.collection.each(function (field) {
+                    $(".search_phrase").append(this.templateTR(
+                            {
+                                title: field.attributes.title,
+                                table: field.attributes.table,
+                                visible: field.attributes.visible ? "Да" : "Нет",
+                                value: field.attributes.value
 
-                     })
-                 );
-             },this);
-            $(".userRequestDiv").on("click",".cansel",function(){
-                $(".userRequestDiv").remove();
-            });
+                            })
+                    );
+                }, this);
+                $(".userRequestDiv").on("click", ".cansel", function () {
+                    $(".userRequestDiv").remove();
+                });
 
+            }
+        }else if(type == "remove"){
+            $(document.body).append($(".userFiltersRemove").html());
+            $(".userFiltersRemoveList").load("./search/clientFilters?type=");
+            $(".userRequestDivRemove").on("click", ".cancel", function () {
+                $(".userRequestDivRemove").remove();
+            });
+            $(".userRequestDivRemove").on("click", ".remove", function () {
+                var arr = [];
+                $(".userRequestDivRemove input[type=checkbox]:checked").each(function(){
+
+                    arr.push($(this).parent().attr("value"));
+                });
+                if(arr.length == 0){alert("Не выбрано объектов для удаления");}
+                else
+                $.ajax({
+                    url : './search/deleteFilters',
+                    async : true,
+                    type : 'GET',
+                    data : {
+                        data:arr,
+                    },
+                    error:function(x,textStatus){
+                        console.log(textStatus);
+                        console.log("error");
+                    },
+                    success: function (data, textStatus){
+                        console.log("success");
+                        $(".userRequestDivRemove").remove();
+                        $("#client_search_div").load("./search/clientFilters?type=select");
+                            //if(confirm("Фильтр успешно сохранен."))$(".userRequestDiv").remove();
+                     }
+                });
+
+            });
         }
     }
 

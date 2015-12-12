@@ -1,11 +1,6 @@
 <script>
 function clearFilter(){
-	$( "#amount" ).val( "0 - 120" );
-	$( "#slider-range" ).slider( "values", 0 ,0);
-	$( "#slider-range" ).slider( "values", 1 ,120);
-	$(".eighty td").css("border","0px solid red");
-		
-	$( "input:checkbox" ).prop('checked', '');
+    $( "input:checkbox" ).prop('checked', '');
 }
 $("#client_filter").change(function(){
 	$("#statement").attr("client_filter_change",1);
@@ -57,12 +52,13 @@ $("#client_filter").change(function(){
 $sql = "SELECT * FROM configs  WHERE name ILIKE 'search|".Yii::app()->user->name."%' OR name ILIKE 'search|global%';";
 $Result = Cases::dbRequest($sql);
 $a = array();
-foreach($Result as $one){
-	$a_name = explode("|",$one["name"]);
-	$a[$one["value"]]=$a_name[2];
-}
+
 if($_GET["type"]== "select") {
-	?>
+    foreach($Result as $one){
+        $a_name = explode("|",$one["name"]);
+        $a[$one["value"]]=$a_name[2];
+    }
+    ?>
 
 	<select id="client_filter" style='font-size:14px;color:#555;margin-top:0em;'>
 		<option value="0" style='font-size:14px;'></option>
@@ -75,7 +71,12 @@ if($_GET["type"]== "select") {
 	<?php
 
 }else{
-	?>
+    foreach($Result as $one){
+        $a_name = explode("|",$one["name"]);
+        $a[$one["name"]]=$a_name[2];
+    }
+
+    ?>
 
 	<ol>
 

@@ -17,9 +17,10 @@
     #added li { margin: 3px; padding: 0.4em; font-size: 16px; height: 18px; }
     p.head {width:200px; color:white;background:black;padding:4px;text-align:center;display:block;}
     div.dbTableView{background:#C5FBBD;width:200px;height: 200px;overflow:hidden;}
+    div.userRequestDivRemove{padding:10px;background:#2080b4; top:180px;left:240px;width:400px;position:absolute; overflow:hidden;border:4px solid white;}
     div.userRequestDiv{padding:10px;background:#208074; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
     div.userRequestDiv td, .data td{background:#60b0a4;}
-    div.userRequestDiv h3{color:white   }
+    div.userRequestDiv h3{color:white;}
     div.userRequestDivError{padding:10px;background:#bb0000; color:white; top:200px;left:200px;position:absolute; overflow:hidden;border:4px solid white;}
     div.userRequestDivError h3{color:white; }
     .checkbox_table{font-size:12px}
@@ -39,10 +40,10 @@ $(function() {
 
 //    добавление пользовательских запросов
     $("#add_user_request_button").click(function(event){
-         window.App.SelectFields.openUserRequest();
+         window.App.SelectFields.openUserRequest("create");
     });
     $("#del_user_request_button").click(function(){
-
+        window.App.SelectFields.openUserRequest("remove");
     });
     $(document).on("click",".create",function(){
         if($("#filter_name").val() == ""){alert("Пустое поле имени фильтра.");$("#filter_name").focus()}
@@ -61,7 +62,7 @@ $(function() {
                 dataType : 'json',
                 success: function (data, textStatus) {
                     if(data == 1){
-                        $("#client_search_div").load("./search/clientFilters");
+                        $("#client_search_div").load("./search/clientFilters?type=select");
                         if(confirm("Фильтр успешно сохранен."))$(".userRequestDiv").remove();
                     }
                     if(data == 0)
@@ -120,7 +121,7 @@ $(function() {
     <!--  Шаблоны поля в таблице выбранных полей         -->
     <script  type="text/template" class="li-add">
         <li class="ui-widget-content" type="<%= type %>"  field="<%= field %>" table="<%= table %>" title="<%= tableAttr %>">
-            <b id="del_li" style="cursor:pointer">-</b>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= titleTable %>.<%= tableAttr %></b></li>
+            <b id="del_li" title="Удалить" style="cursor:pointer;color:white;background-color:#888888;padding:2px 7px 2px 7px;">X</b>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= titleTable %>.<%= tableAttr %></b></li>
     </script>
 
     <!--  Шаблоны полей поиска для разных типов данных          -->
@@ -186,17 +187,21 @@ $(function() {
     </script>
     <!--  Шаблон создания пользовательского запроса  ERROR       -->
     <script  type="text/template" class="userRequestError">
-        <div class="userRequestDivError">
-            <h3>Создание пользовательского запроса</h3>
-            <h2>Ошибка!Вы ничего не выбрали!</h2>
-            <button  class='cansel'>Закрыть</button>
+        <div class="userRequestDivError" style="display:none;">
+            <h3 style="background-color:white;color:black;padding:8px;">Создание пользовательского запроса</h3>
+            <h2 style="color:white;">Ошибка!Вы ничего не выбрали!</h2>
+            <center><button  class='cansel'>Закрыть</button></center>
             <br /><br />
         </div>
+        </script>
         <!--  Шаблон удаления пользовательских фильтров       -->
         <script  type="text/template" class="userFiltersRemove">
-            <h3>Отметьте запросы, которые вы хотели бы удалить</h3>
+            <div class="userRequestDivRemove">
+                <h3>Отметьте запросы, которые вы хотели бы удалить</h3>
             <ol class="userFiltersRemoveList"></ol>
-            <button  class='FiltersRemove'>Удалить</button>
+                <button  class='remove'>Удалить</button>
+                <button  class='cancel'>Отменить</button>
+                </div>
         </script>
     <!--  Шаблон создания строки пользовательского запроса         -->
     <script  type="text/template" class="userRequestTR">

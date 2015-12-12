@@ -22,7 +22,7 @@ class SearchController extends Controller
                 'users'=>array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete','getModelAttributes','getModelTypes','request','clientFilters','createFilter','saveFilter','getFilter'),
+                'actions'=>array('admin','delete','getModelAttributes','getModelTypes','request','clientFilters','createFilter','saveFilter','getFilter','deleteFilters'),
                 'users'=>array('admin'),
             ),
             array('deny',  // deny all users
@@ -64,6 +64,15 @@ class SearchController extends Controller
     {
 
         $this->renderPartial('createFilter');
+    }
+    public function actionDeleteFilters(){
+//        var_dump($_GET['data']);
+        $str = "";
+        foreach($_GET['data'] as $one){
+            $str .= ($str ? " OR " : "")."name = '".$one."'";
+        }
+        $sql = "DELETE FROM configs WHERE ".$str;
+        $Result = $this->dbRequest($sql);
     }
     public function actionSaveFilter(){
         $filter = json_encode($_GET["filter"]);
